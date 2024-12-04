@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Afficher l'aide si -h est fourni
@@ -21,13 +22,32 @@ if [[ $# -lt 3 ]]; then
   exit 1
 fi
 
+#Vérification des valeurs
+if [[ "$2" != "hvb" && "$2" != "hva" && "$2" != "lv" ]]; then
+	echo "Erreur : Type de station incorrect."
+	exit 1
+fi
+
+if [[ "$3" != "comp" && "$3" != "indiv" && "$3" != "all" ]]; then
+	echo "Erreur : Type de consommateur incorrect."
+	exit 1
+fi
+
+# Vérification des contraintes sur les types de station et de consommateur
+if [[ "$2" == "hvb" || "$2" == "hva" ]] && [[ "$3" != "comp" ]]; then
+  echo "Erreur : Les types de station hvb et hva ne peuvent être associés qu'à 'comp'."
+  exit 1
+fi
+
+
 chemin_fichier="$1"
 type_station="$2"
 type_consommateur="$3"
 identifiant_centrale="$4" # Paramètre optionnel
 
-# Vérification des contraintes sur les types de station et de consommateur
-if [[ "$type_station" == "hvb" || "$type_station" == "hva" ]] && [[ "$type_consommateur" != "comp" ]]; then
-  echo "Erreur : Les types de station hvb et hva ne peuvent être associés qu'à 'comp'."
-  exit 1
+if [[ $type_station == hva ]]; then
+	echo "Station HVA:Capacité:Consommation (Particuliers) " > hva_comp.csv
+	#grep -E "[0-9]+;-;[0-9]+;-;-;-;;[0-9]+" c-wire_v00.dat >> hva_comp.csv
+	grep -E "^[0-9]+;-;-;-;-;-;[0-9]+;-" c-wire_v00.dat >> hva_comp.csv
+	echo "Fichier cree"
 fi
