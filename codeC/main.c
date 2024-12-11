@@ -7,7 +7,8 @@
 int main(){
     char buffer[BUFFER_SIZE]; // Stocker chaque ligne lue
     int line_count = 0;       // Compteur de lignes pour illustration
-    pArbre racine = NULL; 
+    pArbre racine = NULL;
+    int h = 0;
 
     printf("Lecture des données depuis le pipe...\n");
 
@@ -25,6 +26,10 @@ int main(){
         printf("Ligne %d : %s\n", line_count, buffer);
 
         // Ajouter ici le traitement des données, comme l'insertion dans un arbre AVL
+        Element station;
+        if (sscanf(buffer, "%d;%d;%d", &station.id, &station.capacite, &station.charge) == 3) { //inserer chaque valeur dans l'élément
+            racine = inserer(racine, station,&h); // inserer la station dans l'AVL
+        }
     }
 
     if (line_count == 0) {
