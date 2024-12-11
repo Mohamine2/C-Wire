@@ -46,8 +46,15 @@ type_consommateur="$3"
 identifiant_centrale="$4" # Paramètre optionnel
 
 if [[ $type_station == hva ]]; then
-	echo "Station HVA:Capacité:Consommation (Particuliers) " > hva_comp.csv
-	#grep -E "[0-9]+;-;[0-9]+;-;-;-;;[0-9]+" c-wire_v00.dat >> hva_comp.csv
-	grep -E "^[0-9]+;-;-;-;-;-;[0-9]+;-" c-wire_v00.dat >> hva_comp.csv
+	echo "Identifiant centrale; ;Identifiant de la station HV-A parente; ;Identifiant du consommateur; ; ;Consommation" > hva_comp.csv
+	grep -E "[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" c-wire_v00.dat >> hva_comp.csv
 	echo "Fichier cree"
 fi
+
+if [[ $type_station == hvb ]]; then
+	echo "Identifiant centale;Identifiant de la station HV-B parente; ; ;Identifiant du consommateur; ; ;Consomation" > hvb_comp.csv
+	grep -E "^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" c-wire_v00.dat >> hvb_comp.csv
+	
+	echo "Fichier cree"
+fi
+
