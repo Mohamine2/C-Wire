@@ -23,6 +23,11 @@ if [[ $# -lt 3 ]]; then
 fi
 
 #Vérification des valeurs
+if [[ ! -f "$1" ]]; then
+  echo "Erreur : Le fichier spécifié n'existe pas"
+  exit 1
+fi
+
 if [[ "$2" != "hvb" && "$2" != "hva" && "$2" != "lv" ]]; then
 	echo "Erreur : Type de station incorrect."
 	exit 1
@@ -39,11 +44,35 @@ if [[ "$2" == "hvb" || "$2" == "hva" ]] && [[ "$3" != "comp" ]]; then
   exit 1
 fi
 
+if [ -f "main" ]; then
+    echo "L'executable C existe"
+else
+    gcc -o main main.c
+    echo "L'éxecutable main n'existait pas, le programme main.c est en cours de compilation..."
+    if [ -f "main" ]; then
+      echo "Compilation réussie"
+    else
+      echo "Echec de la compilation"
+    fi
+fi
+
+# Vérification de l'existence du dossier tmp
+if [ -d "tmp" ]; then
+    echo "Le dossier 'tmp' existe. On vide son contenu..."
+    rm -rf "tmp"/*
+else
+    echo "Le dossier 'tmp' n'existe pas. Création en cours..."
+    mkdir "tmp"
+fi
+
+echo "Le dossier 'tmp' est prêt pour les traitements."
+
 
 chemin_fichier="$1"
 type_station="$2"
 type_consommateur="$3"
 identifiant_centrale="$4" # Paramètre optionnel
+
 
 if [[ $type_station == hva ]]; then
 	echo "Identifiant centrale; ;Identifiant de la station HV-A parente; ;Identifiant du consommateur; ; ;Consommation" > hva_comp.csv
@@ -52,8 +81,8 @@ if [[ $type_station == hva ]]; then
 fi
 
 if [[ $type_station == hvb ]]; then
-	echo "Identifiant centale;Identifiant de la station HV-B parente; ; ;Identifiant du consommateur; ; ;Consomation" > hvb_comp.csv
-	grep -E "^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" c-wire_v00.dat >> hvb_comp.csv
+	echo "Identifiant centale;Identifiant de la station HV-B parente; ; ;Identifiant du consommateur; ; ;Consommation" > hvb_comp.csv
+	grep -E "^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" $chemin_fichier >> hvb_comp.csv
 	
 	echo "Fichier cree"
 fi
