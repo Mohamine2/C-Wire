@@ -145,3 +145,11 @@ pArbre insertionAVL(pArbre a, Element e, int* h) {
     }
 return a;
 }
+
+void afficherInfixe(pArbre a) {
+    if (a != NULL) {
+        afficherInfixe(a->fg);
+        printf("Station %d : Capacite = %d, Consommation = %d\n", a->elmt.station, a->elmt.capacite, a->elmt.consommation);
+        afficherInfixe(a->fd);
+    }
+}
