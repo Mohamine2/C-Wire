@@ -132,12 +132,12 @@ elif [[ $type_station == hvb ]]; then
 
 
 elif [[ $type_station == lv && $type_consommateur == comp ]]; then
-	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" c-wire_v00.dat >> lv_comp.csv
+	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" c-wire_v00.dat
 
 elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
-	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" c-wire_v00.dat >> lv_indiv.csv
+	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" c-wire_v00.dat
 
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
-	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" c-wire_v00.dat >> lv_all.csv
-	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" c-wire_v00.dat >> lv_all.csv
-fi
+	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" c-wire_v00.dat
+	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" c-wire_v00.dat
+ fi
