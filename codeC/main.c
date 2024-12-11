@@ -27,7 +27,7 @@ int main(){
 
         // Ajouter ici le traitement des données, comme l'insertion dans un arbre AVL
         Element station;
-        if (sscanf(buffer, "%d;%d;%d", &station.id, &station.capacite, &station.charge) == 3) { //inserer chaque valeur dans l'élément
+        if (sscanf(buffer, "%d;%d;%d", &station.station, &station.capacite, &station.consommation) == 3) { //inserer chaque valeur dans l'élément
             racine = inserer(racine, station,&h); // inserer la station dans l'AVL
         }
     }
