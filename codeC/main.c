@@ -7,6 +7,7 @@
 int main(){
     char buffer[BUFFER_SIZE]; // Stocker chaque ligne lue
     int line_count = 0;       // Compteur de lignes pour illustration
+    pArbre racine = NULL; 
 
     printf("Lecture des données depuis le pipe...\n");
 
