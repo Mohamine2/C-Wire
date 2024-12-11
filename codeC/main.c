@@ -37,6 +37,6 @@ int main(){
     } else {
         printf("Nombre total de lignes reçues : %d\n", line_count);
     }
-
+    Infixe(pArbre racine); // Liste dans l'ordre croissant
     return 0;
 }
