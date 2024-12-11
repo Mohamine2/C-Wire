@@ -124,20 +124,20 @@ type_consommateur="$3"
 identifiant_centrale="$4" # Paramètre optionnel
 
 if [[ $type_station == hva ]]; then
-	grep -E "[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" $chemin_fichier 
+	grep -E "[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main 
 
 
 elif [[ $type_station == hvb ]]; then
-	grep -E "^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" $chemin_fichier 
+	grep -E "^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main 
 
 
 elif [[ $type_station == lv && $type_consommateur == comp ]]; then
-	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier
+	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main 
 
 elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
-	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier
+	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier | ./codeC/main 
 
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
-	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier
-	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier
+	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main 
+	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier | ./codeC/main 
  fi
