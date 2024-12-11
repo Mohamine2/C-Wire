@@ -94,12 +94,12 @@ if [[ "$2" == "hvb" || "$2" == "hva" ]] && [[ "$3" != "comp" ]]; then
   exit 1
 fi
 
-if [ -f "main" ]; then
+if [ -f "codeC/main" ]; then
     echo "L'executable C existe"
 else
-    gcc -o main main.c
+    gcc -o codeC/main codeC/main.c
     echo "L'éxecutable main n'existait pas, le programme main.c est en cours de compilation..."
-    if [ -f "main" ]; then
+    if [ -f "codeC/main" ]; then
       echo "Compilation réussie"
     else
       echo "Echec de la compilation"
@@ -124,20 +124,20 @@ type_consommateur="$3"
 identifiant_centrale="$4" # Paramètre optionnel
 
 if [[ $type_station == hva ]]; then
-	grep -E "[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" c-wire_v00.dat 
+	grep -E "[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" $chemin_fichier 
 
 
 elif [[ $type_station == hvb ]]; then
-	grep -E "^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" c-wire_v00.dat >> hvb_comp.csv
+	grep -E "^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" $chemin_fichier >> hvb_comp.csv
 
 
 elif [[ $type_station == lv && $type_consommateur == comp ]]; then
-	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" c-wire_v00.dat
+	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier
 
 elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
-	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" c-wire_v00.dat
+	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier
 
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
-	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" c-wire_v00.dat
-	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" c-wire_v00.dat
+	grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier
+	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier
  fi
