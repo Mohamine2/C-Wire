@@ -128,7 +128,7 @@ if [[ $type_station == hva ]]; then
 
 
 elif [[ $type_station == hvb ]]; then
-	grep -E "^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" $chemin_fichier >> hvb_comp.csv
+	grep -E "^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" $chemin_fichier 
 
 
 elif [[ $type_station == lv && $type_consommateur == comp ]]; then
