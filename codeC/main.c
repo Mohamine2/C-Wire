@@ -38,5 +38,9 @@ int main(){
         printf("Nombre total de lignes reçues : %d\n", line_count);
     }
     Infixe(pArbre racine); // Liste dans l'ordre croissant
+
+
+    // A LA FIN IL FAUT FAIRE UN PRINTF DE LA FORME "IDENTIFIANT_STATION:CAPACITE:CONSOMMATION"
+
     return 0;
 }
