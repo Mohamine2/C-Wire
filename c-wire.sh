@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Afficher l'aide si -h est fourni
@@ -13,6 +12,7 @@ if [[ "$*" == *"-h"* ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
+  echo "Durée de traitement du script : 0 seconde"
   exit 0
 fi
 
@@ -29,6 +29,7 @@ if [[ $# -lt 3 ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
+  echo "Durée de traitement du script : 0 seconde"
   exit 1
 fi
 
@@ -45,11 +46,12 @@ if [[ ! -f "$1" ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
+  echo "Durée de traitement du script : 0 seconde"
   exit 1
 fi
 
 if [[ "$2" != "hvb" && "$2" != "hva" && "$2" != "lv" ]]; then
-	echo "Erreur : Type de station incorrect."
+  echo "Erreur : Type de station incorrect."
   echo "Usage: $0 <chemin_fichier> <type_station> <type_consommateur> [identifiant_centrale] [-h]"
   echo "Paramètres obligatoires :"
   echo "  <chemin_fichier> : Indique l’endroit où se trouve le fichier d’entrée."
@@ -60,11 +62,12 @@ if [[ "$2" != "hvb" && "$2" != "hva" && "$2" != "lv" ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
-	exit 1
+  echo "Durée de traitement du script : 0 seconde"
+  exit 1
 fi
 
 if [[ "$3" != "comp" && "$3" != "indiv" && "$3" != "all" ]]; then
-	echo "Erreur : Type de consommateur incorrect."
+  echo "Erreur : Type de consommateur incorrect."
   echo "Usage: $0 <chemin_fichier> <type_station> <type_consommateur> [identifiant_centrale] [-h]"
   echo "Paramètres obligatoires :"
   echo "  <chemin_fichier> : Indique l’endroit où se trouve le fichier d’entrée."
@@ -75,7 +78,8 @@ if [[ "$3" != "comp" && "$3" != "indiv" && "$3" != "all" ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
-	exit 1
+  echo "Durée de traitement du script : 0 seconde"
+  exit 1
 fi
 
 # Vérification des contraintes sur les types de station et de consommateur
@@ -91,6 +95,7 @@ if [[ "$2" == "hvb" || "$2" == "hva" ]] && [[ "$3" != "comp" ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
+  echo "Durée de traitement du script : 0 seconde"
   exit 1
 fi
 
@@ -103,6 +108,8 @@ else
       echo "Compilation réussie"
     else
       echo "Echec de la compilation"
+      echo "Durée de traitement du script : 0 seconde"
+      exit 1
     fi
 fi
 
@@ -117,40 +124,49 @@ fi
 
 echo "Le dossier 'tmp' est prêt pour les traitements."
 
-
 chemin_fichier="$1"
 type_station="$2"
 type_consommateur="$3"
 identifiant_centrale="$4" # Paramètre optionnel
 
+# Capturer l'heure de début
+debut_script=$(date +%s)
+
+# Configurer le trap en cas d'erreur
+trap '{ 
+    fin_script=$(date +%s)
+    duree_script=$((fin_script - debut_script))
+    echo "Durée de traitement du script : $duree_script seconde(s)"
+}' EXIT
+
 if [[ $type_station == hva ]]; then
-	somme_consommation=$(grep -E "[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
+  somme_consommation=$(grep -E "[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
   echo "Station HV-A:Capacité:Consommation(entreprises)" > hva_comp.csv
   echo "$somme_consommation" >> hva_comp.csv
   echo "Fichier hva_comp.csv créé"
 
 elif [[ $type_station == hvb ]]; then
-	somme_consommation=$(grep -E "^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
+  somme_consommation=$(grep -E "^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
   echo "Station HV-B:Capacité:Consommation(entreprises)" > hvb_comp.csv
   echo "$somme_consommation" >> hvb_comp.csv
   echo "Fichier hvb_comp.csv créé"
 
 elif [[ $type_station == lv && $type_consommateur == comp ]]; then
-	somme_consommation=$(grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
+  somme_consommation=$(grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
   echo "Station LV:Capacité:Consommation(entreprises)" > lv_comp.csv
   echo "$somme_consommation" >> lv_comp.csv
   echo "Fichier lv_comp.csv créé"
 
 elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
-	somme_consommation=$(grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier | ./codeC/main)
+  somme_consommation=$(grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier | ./codeC/main)
   echo "Station LV:Capacité:Consommation(particuliers)" > lv_indiv.csv
   echo "$somme_consommation" >> lv_indiv.csv 
   echo "Fichier lv_indiv.csv créé"
 
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
-	somme_consommation=$(grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
+  somme_consommation=$(grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
   echo "Station LV:Capacité:Consommation(tous)" > lv_all.csv
   echo "$somme_consommation" >> lv_all.csv
   
-	grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier | ./codeC/main 
+  grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier | ./codeC/main 
  fi
