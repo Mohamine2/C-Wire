@@ -12,7 +12,7 @@ if [[ "$*" == *"-h"* ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
-  echo "Durée de traitement du script : 0 seconde"
+  echo "Durée de traitement du script : 0.0 seconde"
   exit 0
 fi
 
@@ -29,7 +29,7 @@ if [[ $# -lt 3 ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
-  echo "Durée de traitement du script : 0 seconde"
+  echo "Durée de traitement du script : 0.0 seconde"
   exit 1
 fi
 
@@ -46,7 +46,7 @@ if [[ ! -f "$1" ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
-  echo "Durée de traitement du script : 0 seconde"
+  echo "Durée de traitement du script : 0.0 seconde"
   exit 1
 fi
 
@@ -62,7 +62,7 @@ if [[ "$2" != "hvb" && "$2" != "hva" && "$2" != "lv" ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
-  echo "Durée de traitement du script : 0 seconde"
+  echo "Durée de traitement du script : 0.0 seconde"
   exit 1
 fi
 
@@ -78,7 +78,7 @@ if [[ "$3" != "comp" && "$3" != "indiv" && "$3" != "all" ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
-  echo "Durée de traitement du script : 0 seconde"
+  echo "Durée de traitement du script : 0.0 seconde"
   exit 1
 fi
 
@@ -95,7 +95,7 @@ if [[ "$2" == "hvb" || "$2" == "hva" ]] && [[ "$3" != "comp" ]]; then
   echo "  [identifiant_centrale] : filtre les résultats pour une centrale spécifique. Si cette option est absente, les traitements seront effectués sur toutes les centrales du fichier"
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
-  echo "Durée de traitement du script : 0 seconde"
+  echo "Durée de traitement du script : 0.0 seconde"
   exit 1
 fi
 
@@ -108,7 +108,7 @@ else
       echo "Compilation réussie"
     else
       echo "Echec de la compilation"
-      echo "Durée de traitement du script : 0 seconde"
+      echo "Durée de traitement du script : 0.0 seconde"
       exit 1
     fi
 fi
@@ -130,13 +130,14 @@ type_consommateur="$3"
 identifiant_centrale="$4" # Paramètre optionnel
 
 # Capturer l'heure de début
-debut_script=$(date +%s)
+debut_script=$(date +%s.%N)
 
 # Configurer le trap en cas d'erreur
 trap '{ 
-    fin_script=$(date +%s)
-    duree_script=$((fin_script - debut_script))
-    echo "Durée de traitement du script : $duree_script seconde(s)"
+    fin_script=$(date +%s.%N)
+    duree_script=$(echo "$fin_script - $debut_script" | bc)
+    # Formatage à une décimale
+    printf "Durée de traitement du script : %.1fsec\n" "$duree_script"
 }' EXIT
 
 if [[ $type_station == hva ]]; then
