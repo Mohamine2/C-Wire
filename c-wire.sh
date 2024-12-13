@@ -166,8 +166,9 @@ elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
 
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
   somme_consommation=$(grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
+  somme_consommation2=$(grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier | ./codeC/main)
   echo "Station LV:Capacité:Consommation(tous)" > lv_all.csv
   echo "$somme_consommation" >> lv_all.csv
-  
-  grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier | ./codeC/main 
+  echo "$somme_consommation2" >> lv_all.csv
+   
  fi
