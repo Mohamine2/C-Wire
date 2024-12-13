@@ -10,7 +10,7 @@ typedef struct {
     long consommation; // Consommation de la station (changé en long)
 } Element;
 
-int main() {
+int main(){
     char buffer[BUFFER_SIZE]; // Stocker chaque ligne lue
 
     // Lire ligne par ligne depuis l'entrée standard (stdin)

@@ -165,10 +165,16 @@ elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
   echo "Fichier lv_indiv.csv créé"
 
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
-  somme_consommation=$(grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
-  somme_consommation2=$(grep -E "^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier | ./codeC/main)
+  # Extraction et traitement des données
+  somme_consommation=$(grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./codeC/main)
+  # Écriture dans lv_all.csv
   echo "Station LV:Capacité:Consommation(tous)" > lv_all.csv
   echo "$somme_consommation" >> lv_all.csv
-  echo "$somme_consommation2" >> lv_all.csv
-   
+  
+  grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main > lv_all_minmax.csv
+  echo "Min et Max" >> lv_all.csv
+  echo "Station LV:Capacité:Consommation(tous)" >> lv_all_minmax.csv
+  echo "Fichier lv_all.csv créé"
+  echo "Fichier lv_all_minmax.csv créé"
+
  fi
