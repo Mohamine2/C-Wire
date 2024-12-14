@@ -83,21 +83,6 @@ pArbre DoubleRotationDroite(pArbre a) {
     return rotationDroite(a);
 }
 
-void ajouterFilsDroit(pArbre a,Element e){
-    if(a== NULL || a->fd !=NULL){
-        return;
-    }
-    a->fd = CreerArbre(e);
-}
-
-void ajouterFilsGauche(pArbre a,Element e){
-    if(a == NULL || a->fg != NULL){
-        return;
-    }
-    a->fg = CreerArbre(e);
-}
-
-
 pArbre equilibreAVL(pArbre a) {
     if (a->equilibre >= 2) {
         if (a->fd != NULL && a->fd->equilibre >= 0) {
@@ -152,4 +137,51 @@ void afficherInfixe(pArbre a) {
         printf("Station %d : Capacite = %d, Consommation = %d\n", a->elmt.station, a->elmt.capacite, a->elmt.consommation);
         afficherInfixe(a->fd);
     }
+}
+
+#define TAILLE_MAX_LIGNE 128
+
+void remplirAVL(pAbre a){ // que la consommation pour l'instant
+    if(a==NULL){
+        exit(1);
+    }
+    char ligne[TAILLE_MAX_LIGNE];
+
+    // Lire l'entrée standard ligne par ligne
+    while (fgets(ligne, sizeof(ligne), stdin)) {
+        char *token;
+        int compteur_champ = 0;  // Réinitialiser compteur_champ à 0 à chaque ligne lue
+
+        // Supprimer le saut de ligne éventuel
+        ligne[strcspn(ligne, "\n")] = 0;
+
+        // Tokeniser la ligne avec le délimiteur ";"
+        token = strtok(ligne, ";");
+        while (token != NULL) {
+            compteur_champ++;
+
+            // Vérifier si on est au 7ᵉ champ (consommation)
+            if (compteur_champ == 7) {
+                int consommation = atoi(token); // Convertir le champ en entier
+                a->racine = insertionAVL(a->racine, consommation);
+                break; // Sortir de la boucle de tokenisation
+            }
+
+            token = strtok(NULL, ";");
+        }
+    }
+    return 0;
+}
+
+int main{
+    pArbre a = NULL;
+    a=malloc(sizeof(Arbre));
+    if(a==NULL){
+        exit(1);
+    }
+    a=creerArbre(a,identfiant_centrale);
+    a=hierarchisation(a); //creer et relier les noeuds hva ou hvb ou lv avec la centrale
+    a=remplirAVL(a);
+    long somme_consommation = sommeAVL(a);
+    return 0;
 }
