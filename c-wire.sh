@@ -178,3 +178,29 @@ elif [[ $type_station == lv && $type_consommateur == all ]]; then
   echo "Fichier lv_all_minmax.csv créé"
 
  fi
+
+#permettre de récupérer la sortie du c en "sation:capacité:consommation" et la sortie écrite de la même manière mais avec le classement en fonction de la consommation absolue
+#proposition qui permet de séparer la sortie (contenant les deux printf expliqués juste au dessus) en deux
+
+#elif [[ $type_station == lv && $type_consommateur == all ]]; then
+  # Extraction des lignes avec grep
+  #data_extracted=$(grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier")
+  
+  # Appel au programme C et capture de la sortie
+  #output=$(echo "$data_extracted" | ./codeC/main)
+
+  # Séparer les parties Somme et Min/Max
+  #somme_consommation=$(echo "$output" | sed -n '/^SOMME:/,/^MINMAX:/p' | sed '/^SOMME:/d' | sed '/^MINMAX:/d')
+  #minmax_stations=$(echo "$output" | sed -n '/^MINMAX:/,$p' | sed '/^MINMAX:/d')
+
+  # Écriture dans lv_all.csv
+  #echo "Station LV:Capacité:Consommation(tous)" > lv_all.csv
+  #echo "$somme_consommation" >> lv_all.csv
+
+  # Écriture dans lv_all_minmax.csv
+  #echo "Station LV:Capacité:Consommation(tous)" > lv_all_minmax.csv
+  #echo "$minmax_stations" >> lv_all_minmax.csv
+
+  #echo "Fichier lv_all.csv créé"
+  #echo "Fichier lv_all_minmax.csv créé"
+#fi
