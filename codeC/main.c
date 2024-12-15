@@ -35,3 +35,5 @@ int main(){
 
     return 0;
 }
+
+//CODE DE CHATGPT QUI FONCTIONNE AVEC HVA COMP NORMALEMENT
