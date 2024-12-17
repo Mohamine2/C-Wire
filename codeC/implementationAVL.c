@@ -1,15 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "./structure.h"
+#include "structure.h"
+#include "implementation.h"
 
-pArbre CreerArbre(int id, int cap, int consommation) {
+
+pArbre CreerArbre(int id, int capacite, int consommation) {
   pArbre a = malloc(sizeof(Arbre)); 
   if (a == NULL) {                        
       exit(1);
   }
   a->elmt.id_station = id;
-  a->elmt.capacite = cap;
+  a->elmt.capacite = capacite;
   a->elmt.conso = consommation;
   a->fg = NULL;     
   a->fd = NULL;         
@@ -33,44 +32,43 @@ int min(int a, int b){
   }
 }
 
-int min3(int a,int b,int c){
+int min2(int a,int b,int c){
   return min(min(a,b),c);
 }
 
-int max3 (int a, int b, int c){
-  return max(max(a,b),c);
-}
 
 
+pArbre rotationGauche(pArbre a) {
+    if (a == NULL || a->fd == NULL) return a;
 
-pArbre rotationGauche(pArbre a){
-    int eq_a;
-    int eq_p;
-    pArbre pivot=a->fd;
-    a->fd=pivot->fg;
-    pivot->fg=a;
-    eq_a=a->eq;
-    eq_p=pivot->eq;
-    int max1=max(eq_p,0);
-    a->eq=eq_a-max1-1;
-    pivot->eq=min3(eq_a-2,eq_p-2,eq_p-1);
-    a=pivot;
-    return a;
+    pArbre pivot = a->fd;
+    int eq_a = a->eq;
+    int eq_p = pivot->eq;
+
+    a->fd = pivot->fg;   
+    pivot->fg = a;
+
+    a->eq = eq_a - max(eq_p, 0) - 1;
+    pivot->eq = min2(eq_a - 2, eq_a + eq_p - 2, eq_p - 1);
+
+    return pivot;  
 }
 
 pArbre rotationDroite(pArbre a){
-    int eq_a;
-    int eq_p;
-    pArbre pivot=a->fg;
-    a->fg=pivot->fd;
-    pivot->fd=a;
-    eq_a=a->eq;
-    eq_p=pivot->eq;
-    int min1=min(eq_p,0);
-    a->eq=eq_a-min1+1;
-    pivot->eq=max3(eq_a+2,eq_a+eq_p+2,eq_p+1);
-    a=pivot;
-    return a;
+    if(a==NULL || a->fg==NULL) return a;
+
+    pArbre pivot = a->fg;
+    int eq_a = a->eq;
+    int eq_p = pivot->eq;
+
+    a->fg = pivot->fd;
+    pivot->fd = a;
+
+    a->eq =eq_a - max(eq_p,0) - 1;
+    pivot->eq = min2(eq_a-2,eq_a+eq_p-2,eq_p-1);
+
+    return pivot;
+
 }
 
 pArbre DoubleRotationGauche(pArbre a) {
@@ -85,7 +83,7 @@ pArbre DoubleRotationDroite(pArbre a) {
   return rotationDroite(a);
 }
 
-pArbre equilibrageAVL(pArbre a) {
+pArbre equilibreAVL(pArbre a) {
   if (a->eq >= 2) {
       if (a->fd != NULL && a->fd->eq >= 0) {
           return rotationGauche(a);
@@ -101,6 +99,9 @@ pArbre equilibrageAVL(pArbre a) {
   }
   return a;
 }
+
+
+
 
 pArbre insertionAVL(pArbre a, int id, int capacite, int consommation, int* h) { 
   if (a == NULL) {
@@ -120,7 +121,7 @@ pArbre insertionAVL(pArbre a, int id, int capacite, int consommation, int* h) {
 
   if(*h != 0){
 a->eq = a->eq + *h;
-a = equilibrageAVL(a);
+a = equilibreAVL(a);
 if(a->eq == 0){
   *h = 0;
 }else{
@@ -130,21 +131,13 @@ if(a->eq == 0){
 return a;
 }
 
-void libererArbre(pArbre a) {
-    if (a != NULL) {
-        libererArbre(a->fg);
-        libererArbre(a->fd);
-        free(a);
-    }
-}
-
-/*void afficherInfixe(pArbre a) {
+void afficherInfixe(pArbre a) {
   if (a != NULL) {
       afficherInfixe(a->fg);
-      printf("Station %d : Capacite = %d, Consommation = %d\n", a->elmt.station, a->elmt.capacite, a->elmt.consommation);
+      printf("Station %d : Capacite = %d, Consommation = %ld\n", a->elmt.id_station, a->elmt.capacite, a->elmt.conso);
       afficherInfixe(a->fd);
   }
-}*/
+}
     
 int recherche(pArbre a, int id, int consommation) {
     if (a == NULL) {
