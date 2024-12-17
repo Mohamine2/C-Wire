@@ -71,15 +71,6 @@
         }
     }
 
-
-void sommeconso(pArbre a, int* somme){
-    if(a==NULL){
-        exit(1);
-    }
-
-    
-}
-
 void parcoursSomme(pArbre a, int* somme){
 
     if(a==NULL){
