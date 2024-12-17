@@ -26,9 +26,7 @@ int main(){
         if (sscanf(buffer, "%d;-;%d;-;%ld;-;-;%*d", &station.id_station, &station.capacite, &station.conso) == 3) {
             // Afficher les données au format souhaité
             printf("%d:%d:%ld\n", station.id_station, station.capacite, station.conso);
-        } else {
-            fprintf(stderr, "Erreur : ligne ignorée car elle ne correspond pas au format attendu : %s\n", buffer);
-        }
+        } 
     }
 
     return 0;
