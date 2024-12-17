@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <./structure.h>
-#include <./implementationAVL.h>
+#include "./structure.h"
+#include "./implementationAVL.h"
 
 #define TAILLE_MAX_LIGNE 128
 
@@ -65,7 +65,7 @@
             }
 
             // Si l'ID n'est pas encore présent dans l'AVL, insérer un nouveau nœud
-            if (!recherche(*a, id, consommation)) {
+            if (!recherche(a, id, consommation)) {
                 a = insertionAVL(a, id, capacite, consommation, &h);
             }
         }

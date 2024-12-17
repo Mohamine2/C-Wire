@@ -13,11 +13,11 @@ pArbre CreerArbre(int id, int cap, int consommation) {
   a->elmt.conso = consommation;
   a->fg = NULL;     
   a->fd = NULL;         
-  a->equilibre = 0;
+  a->eq = 0;
   return a;
 }
 
-int max3(int a,int b){
+int max(int a,int b){
   if(a<b){
       return b;
   }else {
@@ -37,6 +37,10 @@ int min3(int a,int b,int c){
   return min(min(a,b),c);
 }
 
+int max3 (int a, int b, int c){
+  return max(max(a,b),c);
+}
+
 
 
 pArbre rotationGauche(pArbre a){
@@ -47,8 +51,8 @@ pArbre rotationGauche(pArbre a){
     pivot->fg=a;
     eq_a=a->eq;
     eq_p=pivot->eq;
-    int max=max(eq_p,0);
-    a->eq=eq_a-max-1;
+    int max1=max(eq_p,0);
+    a->eq=eq_a-max1-1;
     pivot->eq=min3(eq_a-2,eq_p-2,eq_p-1);
     a=pivot;
     return a;
@@ -60,8 +64,10 @@ pArbre rotationDroite(pArbre a){
     pArbre pivot=a->fg;
     a->fg=pivot->fd;
     pivot->fd=a;
-    int min=min(eq_p,0);
-    a->eq=eq_a-min+1;
+    eq_a=a->eq;
+    eq_p=pivot->eq;
+    int min1=min(eq_p,0);
+    a->eq=eq_a-min1+1;
     pivot->eq=max3(eq_a+2,eq_a+eq_p+2,eq_p+1);
     a=pivot;
     return a;
@@ -79,15 +85,15 @@ pArbre DoubleRotationDroite(pArbre a) {
   return rotationDroite(a);
 }
 
-pArbre equilibreAVL(pArbre a) {
-  if (a->equilibre >= 2) {
-      if (a->fd != NULL && a->fd->equilibre >= 0) {
+pArbre equilibrageAVL(pArbre a) {
+  if (a->eq >= 2) {
+      if (a->fd != NULL && a->fd->eq >= 0) {
           return rotationGauche(a);
       } else {
           return DoubleRotationGauche(a);
       }
-  } else if (a->equilibre <= -2) {
-      if (a->fg != NULL && a->fg->equilibre <= 0) {
+  } else if (a->eq <= -2) {
+      if (a->fg != NULL && a->fg->eq <= 0) {
           return rotationDroite(a);
       } else {
           return DoubleRotationDroite(a);
@@ -116,9 +122,9 @@ pArbre insertionAVL(pArbre a, int id, int capacite, int consommation, int* h) {
   }
 
   if(*h != 0){
-a->equilibre = a->equilibre + *h;
+a->eq = a->eq + *h;
 a = equilibrageAVL(a);
-if(a->equilibre == a){
+if(a->eq == 0){
   *h = 0;
 }else{
   *h=1;
@@ -127,19 +133,19 @@ if(a->equilibre == a){
 return a;
 }
 
-void afficherInfixe(pArbre a) {
+/*void afficherInfixe(pArbre a) {
   if (a != NULL) {
       afficherInfixe(a->fg);
       printf("Station %d : Capacite = %d, Consommation = %d\n", a->elmt.station, a->elmt.capacite, a->elmt.consommation);
       afficherInfixe(a->fd);
   }
-}
+}*/
     
 int recherche(pArbre a, int id, int consommation) {
     if (a == NULL) {
         return 0; // Non trouvé
     } else if (a->elmt.id_station == id) {
-        a->elmt.consommation += consommation; // Mettre à jour la consommation
+        a->elmt.conso += consommation; // Mettre à jour la consommation
         return 1;
     } else if (id < a->elmt.id_station) {
         return recherche(a->fg, id, consommation);

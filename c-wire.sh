@@ -104,7 +104,7 @@ if [ -f "codeC/main" ]; then
 else
     make
     echo "L'éxecutable main n'existait pas, le programme main.c est en cours de compilation..."
-    if [ -f "codeC/main" ]; then
+    if [ -f "codeC/main.o" ]; then
       echo "Compilation réussie"
     else
       echo "Echec de la compilation"

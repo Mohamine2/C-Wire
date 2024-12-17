@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
 
 typedef struct Element{
     int id_station;
@@ -15,11 +15,9 @@ typedef struct Arbre{
     Element elmt;
     struct Arbre* fg;
     struct Arbre* fd;
-    int equilibre;
+    int eq;
     long s_conso;
 }Arbre;
-
-typedef Arbre* pArbre;
 
 typedef Arbre* pArbre;
 
