@@ -66,13 +66,12 @@
         }
     }
 
-void parcoursSomme(pArbre a, int* somme){
-
-    if(a==NULL){
+void parcoursSomme(pArbre a, long* somme) {
+    if (a == NULL) {
         return;
     }
     parcoursSomme(a->fg, somme);
-    *somme+= a->elmt.conso;
+    printf("Somme partielle: %ld, ajout de consommation: %ld (id=%d)\n", *somme, a->elmt.conso, a->elmt.id_station);
+    *somme += a->elmt.conso;
     parcoursSomme(a->fd, somme);
-
 }

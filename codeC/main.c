@@ -69,8 +69,8 @@ int main(){
             a = insertionAVL(a, id, capacite, consommation, &h);
         }
     }
-    int somme;
+    long somme = 0;
     parcoursSomme(a,&somme);
-    printf("Somme: %d",somme);
+    printf("Somme: %ld",somme);
     return 0;
 }

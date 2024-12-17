@@ -4,6 +4,6 @@
 #include "./implementationAVL.h"
 
 void remplirAVL(pArbre a);
-void parcoursSomme(pArbre a, int* somme);
+void parcoursSomme(pArbre a, long* somme);
 
 #endif
