@@ -2,5 +2,5 @@
 #define FONCTION_H
 
 void remplirAVL(pARbre a);
-parcoursSomme(pARbre a, int* somme);
+void parcoursSomme(pARbre a, int* somme);
 #endif
