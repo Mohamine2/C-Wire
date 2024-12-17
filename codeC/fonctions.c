@@ -1,6 +1,6 @@
 int Somme(int a,int b){
     return a+b;
-
+}
 pArbre CreerArbre(Element x) {
     pArbre a = malloc(sizeof(Arbre)); 
     if (a == NULL) {                        
@@ -171,6 +171,17 @@ void remplirAVL(pAbre a){ // que la consommation pour l'instant
         }
     }
     return 0;
+}
+
+void parcoursSomme(pArbre a, int* somme){
+
+    if(a==NULL){
+        return;
+    }
+    parcoursSomme(a->fg, somme);
+    *somme+= a->elmt.conso;
+    parcoursSomme(a->fd, somme);
+
 }
 
 int main{

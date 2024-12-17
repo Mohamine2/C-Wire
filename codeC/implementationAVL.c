@@ -102,9 +102,6 @@ pArbre equilibrageAVL(pArbre a) {
   return a;
 }
 
-
-
-
 pArbre insertionAVL(pArbre a, int id, int capacite, int consommation, int* h) { 
   if (a == NULL) {
       *h = 1;
