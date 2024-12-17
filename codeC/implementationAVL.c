@@ -130,6 +130,14 @@ if(a->eq == 0){
 return a;
 }
 
+void libererArbre(pArbre a) {
+    if (a != NULL) {
+        libererArbre(a->fg);
+        libererArbre(a->fd);
+        free(a);
+    }
+}
+
 /*void afficherInfixe(pArbre a) {
   if (a != NULL) {
       afficherInfixe(a->fg);
