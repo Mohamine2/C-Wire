@@ -150,8 +150,6 @@ int recherche(pArbre a, int id, int consommation) {
     }
 }
 
-#define TAILLE_MAX_LIGNE 128
-
 void remplirAVL(pArbre a) {
     if (a == NULL) {
         printf("Erreur : Arbre initial inexistant.\n");
