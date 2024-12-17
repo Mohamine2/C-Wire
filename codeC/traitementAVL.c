@@ -7,10 +7,6 @@
 #define TAILLE_MAX_LIGNE 128
 
     void remplirAVL(pArbre a) {
-        if (a == NULL) {
-            printf("Erreur : Arbre initial inexistant.\n");
-            return;
-        }
         int h;
         char ligne[TAILLE_MAX_LIGNE];
         
