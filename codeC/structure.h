@@ -1,17 +1,14 @@
 #ifndef STRUCTURE_H
 #define STRUCTURE_H
 
-//On inclut les bibliothèque qu'on connait
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
-#include <ctype.h>
 
 typedef struct Element{
-    int station;
+    int id_station;
     int capacite;
-    int consommation;
+    int conso;
 }Element;
 
 typedef struct Arbre{
@@ -19,7 +16,10 @@ typedef struct Arbre{
     struct Arbre* fg;
     struct Arbre* fd;
     int equilibre;
+    long s_conso;
 }Arbre;
+
+typedef Arbre* pArbre;
 
 typedef Arbre* pArbre;
 
