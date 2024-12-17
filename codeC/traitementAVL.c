@@ -48,7 +48,6 @@
 
             // Vérifier si les données importantes sont valides
             if (id == -1) {
-                printf("Erreur : ID manquant ou invalide dans une ligne.\n"); 
                 continue; // Passer à la ligne suivante
             }
 
