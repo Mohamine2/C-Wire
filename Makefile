@@ -1,6 +1,6 @@
 # Compiler flags
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
+CFLAGS = -Wall -Wextra -std=c99 -IcodeC
 LDFLAGS =
 
 # Source files
@@ -18,4 +18,5 @@ $(TARGET): $(OBJS)
 
 # Clean rule
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) $(TARGET) codeC/*.o
+

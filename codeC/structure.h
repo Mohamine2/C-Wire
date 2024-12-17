@@ -8,7 +8,7 @@
 typedef struct Element{
     int id_station;
     int capacite;
-    int conso;
+    long conso;
 }Element;
 
 typedef struct Arbre{

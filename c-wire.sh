@@ -99,19 +99,19 @@ if [[ "$2" == "hvb" || "$2" == "hva" ]] && [[ "$3" != "comp" ]]; then
   exit 1
 fi
 
-if [ -f "codeC/main" ]; then
+if [ -f "codeC/main.o" ]; then
     echo "L'executable C existe"
 else
     make
     echo "L'éxecutable main n'existait pas, le programme main.c est en cours de compilation..."
     if [ -f "codeC/main.o" ]; then
-      echo "Compilation réussie"
+    echo "Compilation réussie"
     else
       echo "Echec de la compilation"
-      echo "Durée de traitement du script : 0.0 seconde"
       exit 1
     fi
 fi
+
 
 # Vérification de l'existence du dossier tmp
 if [ -d "tmp" ]; then
@@ -136,37 +136,38 @@ debut_script=$(date +%s.%N)
 trap '{ 
     fin_script=$(date +%s.%N)
     duree_script=$(echo "$fin_script - $debut_script" | bc)
-    # Formatage à une décimale
+    #Formatage à une décimale
     printf "Durée de traitement du script : %.1fsec\n" "$duree_script"
-}' EXIT
+}' EXIT ERR
+
 
 if [[ $type_station == hva ]]; then
-  somme_consommation=$(grep -E "^[0-9]+;[0-9]+;[0-9]+;-;-;-;[0-9]+;-|^[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
+  somme_consommation=$(grep -E "^[0-9]+;[0-9]+;[0-9]+;-;-;-;[0-9]+;-|^[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main.c)
   echo "Station HV-A:Capacité:Consommation(entreprises)" > hva_comp.csv
   echo "$somme_consommation" >> hva_comp.csv
   echo "Fichier hva_comp.csv créé"
 
 elif [[ $type_station == hvb ]]; then
-  somme_consommation=$(grep -E "^[0-9]+;[0-9]+;-;-;-;-;[0-9]+;-|^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
+  somme_consommation=$(grep -E "^[0-9]+;[0-9]+;-;-;-;-;[0-9]+;-|^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main.c)
   echo "Station HV-B:Capacité:Consommation(entreprises)" > hvb_comp.csv
   echo "$somme_consommation" >> hvb_comp.csv
   echo "Fichier hvb_comp.csv créé"
 
 elif [[ $type_station == lv && $type_consommateur == comp ]]; then
-  somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main)
+  somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main.c)
   echo "Station LV:Capacité:Consommation(entreprises)" > lv_comp.csv
   echo "$somme_consommation" >> lv_comp.csv
   echo "Fichier lv_comp.csv créé"
 
 elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
-  somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier | ./codeC/main)
+  somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" $chemin_fichier | ./codeC/main.c)
   echo "Station LV:Capacité:Consommation(particuliers)" > lv_indiv.csv
   echo "$somme_consommation" >> lv_indiv.csv 
   echo "Fichier lv_indiv.csv créé"
 
 #elif [[ $type_station == lv && $type_consommateur == all ]]; then
   # Extraction et traitement des données
-  #somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./codeC/main)
+  #somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./codeC/main.c)
   # Écriture dans lv_all.csv
   #echo "Station LV:Capacité:Consommation(tous)" > lv_all.csv
   #echo "$somme_consommation" >> lv_all.csv
@@ -184,7 +185,7 @@ elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
 
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
   # Extraction des lignes spécifiques pour les stations LV avec leurs consommations.
-  sortie_c=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./codeC/main)
+  sortie_c=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./codeC/main.c)
 
   # Séparer les parties Somme et Min/Max
   somme_consommation=$(echo "$sortie_c" | sed -n '/^SOMME:/,/^MINMAX:/p' | sed '/^SOMME:/d' | sed '/^MINMAX:/d')

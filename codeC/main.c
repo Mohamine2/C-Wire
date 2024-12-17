@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "./structure.h"
+#include "./implementationAVL.h"
+#include "./traitementAVL.h"
+
 
 #define BUFFER_SIZE 1024
-
-typedef struct {
-    int station;       // Identifiant de la station
-    int capacite;      // Capacité de la station
-    long consommation; // Consommation de la station (changé en long)
-} Element;
 
 int main(){
     char buffer[BUFFER_SIZE]; // Stocker chaque ligne lue
@@ -25,9 +23,9 @@ int main(){
         Element station;
 
         // Extraire les données au format attendu : IDENTIFIANT;CAPACITE;CONSOMMATION
-        if (sscanf(buffer, "%d;-;%d;-;%ld;-;-;%*d", &station.station, &station.capacite, &station.consommation) == 3) {
+        if (sscanf(buffer, "%d;-;%d;-;%ld;-;-;%*d", &station.id_station, &station.capacite, &station.conso) == 3) {
             // Afficher les données au format souhaité
-            printf("%d:%d:%ld\n", station.station, station.capacite, station.consommation);
+            printf("%d:%d:%ld\n", station.id_station, station.capacite, station.conso);
         } else {
             fprintf(stderr, "Erreur : ligne ignorée car elle ne correspond pas au format attendu : %s\n", buffer);
         }
@@ -35,5 +33,3 @@ int main(){
 
     return 0;
 }
-
-//CODE DE CHATGPT QUI FONCTIONNE AVEC HVA COMP NORMALEMENT
