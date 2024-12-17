@@ -71,10 +71,6 @@
         }
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 5eced55e7956ab6eea1f95d3d47423f1b4c25b48
 void parcoursSomme(pArbre a, int* somme){
 
     if(a==NULL){
