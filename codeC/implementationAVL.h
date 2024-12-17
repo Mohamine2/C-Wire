@@ -1,6 +1,6 @@
 #ifndef IMPLEMENTATIONAVL_H
 #define IMPLEMENTATIONAVL_H
-#include "./struct.h"
+#include "./structure.h"
 
 pArbre CreerArbre(int id, int cap, int consommation);
 int max(int a,int b);
