@@ -102,7 +102,7 @@ fi
 if [ -f "codeC/main" ]; then
     echo "L'executable C existe"
 else
-    gcc -o codeC/main codeC/main.c
+    make
     echo "L'éxecutable main n'existait pas, le programme main.c est en cours de compilation..."
     if [ -f "codeC/main" ]; then
       echo "Compilation réussie"
