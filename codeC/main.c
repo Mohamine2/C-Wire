@@ -79,7 +79,7 @@ while (fgets(ligne, sizeof(ligne), stdin)) {
     }
 }
 
-    long somme = 0;
+    //long somme = 0;
     //parcoursSomme(a,&somme);
     //printf("Somme: %ld",somme);
     //long somme = 0;
