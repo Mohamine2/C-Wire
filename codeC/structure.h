@@ -7,7 +7,7 @@
 
 typedef struct Element {
   int id_station;
-  int capacite;
+  long capacite;
   long conso;
 } Element;
 

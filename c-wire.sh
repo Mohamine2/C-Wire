@@ -186,7 +186,7 @@ elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
 
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
   # Extraction des lignes spécifiques pour les stations LV avec leurs consommations.
-  sortie_c=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./C-Wire)
+  sortie_c=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./C-Wire 5)
 
   # Séparer les parties Somme et Min/Max
   somme_consommation=$(echo "$sortie_c" | sed -n '/^SOMME:/,/^MINMAX:/p' | sed '/^SOMME:/d' | sed '/^MINMAX:/d')

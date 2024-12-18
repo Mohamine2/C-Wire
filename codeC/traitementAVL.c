@@ -60,7 +60,7 @@
             }
 
             // Si l'ID n'est pas encore présent dans l'AVL, insérer un nouveau nœud
-            if (!recherche(a, id)) {
+            if (!recherche(a, id, consommation)) {
                 a = insertionAVL(a, id, capacite, consommation, &h);
             }
         }
@@ -70,7 +70,7 @@ void traiter(pArbre a){
     if(a == NULL){
         return;
     }
-    printf("%d:%d:%ld\n", a->elmt.id_station, a->elmt.capacite, a->elmt.conso);
+    printf("%d:%ld:%ld\n", a->elmt.id_station, a->elmt.capacite, a->elmt.conso);
 }
 
 void afficher(pArbre a) {

@@ -65,17 +65,6 @@ void remplirAVL(pArbre a) {
     }
 }
 
-void parcoursSomme(pArbre a, int* somme){
-
-if(a==NULL){
-    return;
-}
-parcoursSomme(a->fg, somme);
-*somme+= a->elmt.conso;
-parcoursSomme(a->fd, somme);
-
-}
-
 void libererArbre(pArbre a) {
     if (a != NULL) {
         libererArbre(a->fg);
