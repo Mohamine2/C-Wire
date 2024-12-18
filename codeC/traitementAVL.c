@@ -66,6 +66,23 @@
         }
     }
 
+void traiter(pArbre a){
+    if(a == NULL){
+        return;
+    }
+    printf("%d:%d:%ld\n", a->elmt.id_station, a->elmt.capacite, a->elmt.conso);
+}
+
+void afficher(pArbre a) {
+    if (a == NULL) {
+        return;
+    }
+    afficher(a->fg);
+    traiter(a);
+    afficher(a->fd);
+}
+
+
 void parcoursSomme(pArbre a, long* somme) {
     if (a == NULL) {
         return;

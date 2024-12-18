@@ -11,6 +11,10 @@
 
 int main(){
     pArbre a = NULL;
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 3e20659c8a3195b9a7d3fff18a6350ebf74f9813
     char ligne[TAILLE_MAX_LIGNE];
     int h;
         
@@ -82,5 +86,10 @@ while (fgets(ligne, sizeof(ligne), stdin)) {
     long somme = 0;
     parcoursSomme(a,&somme);
     printf("Somme: %ld",somme);
+    //long somme = 0;
+    //parcoursSomme(a,&somme);
+    //printf("Somme: %ld",somme);
+    afficher(a);
+
     return 0;
 }
