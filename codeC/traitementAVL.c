@@ -88,7 +88,6 @@ void parcoursSomme(pArbre a, long* somme) {
         return;
     }
     parcoursSomme(a->fg, somme);
-    printf("Somme partielle: %ld, ajout de consommation: %ld (id=%d)\n", *somme, a->elmt.conso, a->elmt.id_station);
     *somme += a->elmt.conso;
     parcoursSomme(a->fd, somme);
 }
