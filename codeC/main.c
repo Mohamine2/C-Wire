@@ -11,7 +11,7 @@
 
 int main(){
     pArbre a = NULL;
-    a= malloc(sizeof(Arbre));
+    
     char ligne[TAILLE_MAX_LIGNE];
     int h;
         
@@ -69,8 +69,10 @@ int main(){
             a = insertionAVL(a, id, capacite, consommation, &h);
         }
     }
-    long somme = 0;
-    parcoursSomme(a,&somme);
-    printf("Somme: %ld",somme);
+    //long somme = 0;
+    //parcoursSomme(a,&somme);
+    //printf("Somme: %ld",somme);
+    afficher(a);
+
     return 0;
 }
