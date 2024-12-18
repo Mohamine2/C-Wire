@@ -12,32 +12,32 @@
 int main(int argc, char *argv[]){
 
     int chiffre = atoi(argv[1]);
-
+    char ligne[TAILLE_MAX_LIGNE];
+    
      if(chiffre == 6){
         //code pour lv min max
-        printf("test");
+        //faudrait le faire avec une liste chainée pour insérer les noeuds 
+        int station, h;
+        long capacite, conso;
+        fgets(ligne, sizeof(ligne), stdin); //ignorer la première ligne
 
+        while (fgets(ligne, sizeof(ligne), stdin) != NULL) {
+            sscanf(ligne, "%d:%ld:%ld", &station,&capacite,&conso);
+            
+
+        }
+
+        
         return 0;
-
-    }
+     }
 
     pArbre a = NULL;
-    //char ligne[TAILLE_MAX_LIGNE];
-    if (argc < 2) { // Vérifier qu'il y a au moins un argument passé
-        printf("Erreur : Veuillez fournir un argument.\n");
-        return 1;
-    }
-    //int chiffre = atoi(argv[1]);
-    //int h;  // Hauteur pour équilibrage AVL
-
-    // Lire l'entrée ligne par ligne
-        int h;  // Hauteur pour équilibrage AVL
-    char ligne[TAILLE_MAX_LIGNE];
-
+    int h = 0; // Hauteur pour équilibrage AVL
     // Lire l'entrée ligne par ligne
     while (fgets(ligne, sizeof(ligne), stdin)) {
         char *token;
-        int id = -1, capacite = -1, consommation = -1;
+        int id = -1;
+        long capacite = -1; long consommation = -1; // test pour voir si la dernière valeur négative dans les fichiers est encore là
         char champ3[128] = "";
         char champ4[128] = "";
         int compteur_champ = 0;

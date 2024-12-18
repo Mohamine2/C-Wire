@@ -16,9 +16,15 @@ typedef struct Arbre {
   struct Arbre *fg;
   struct Arbre *fd;
   int eq;
-  long s_conso;
 } Arbre;
 
-typedef Arbre *pArbre;
+typedef struct LV {
+    int id;
+    int capacite;
+    int consommation;
+    struct LV* suivant;
+} LV;
 
+
+typedef Arbre *pArbre;
 #endif // STRUCTURE_H
