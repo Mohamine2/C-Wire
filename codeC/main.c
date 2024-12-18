@@ -11,14 +11,10 @@
 
 int main(){
     pArbre a = NULL;
-<<<<<<< HEAD
-=======
-    
->>>>>>> 3e20659c8a3195b9a7d3fff18a6350ebf74f9813
     char ligne[TAILLE_MAX_LIGNE];
     int h;
         
-    // Lire l'entrée standard ligne par ligne
+// Lire l'entrée standard ligne par ligne
 while (fgets(ligne, sizeof(ligne), stdin)) {
     char *token;
     int id = -1, capacite = -1, consommation = -1; // Initialiser à des valeurs invalides
