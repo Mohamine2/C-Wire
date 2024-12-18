@@ -13,6 +13,6 @@ pArbre DoubleRotationDroite(pArbre a);
 pArbre equilibreAVL(pArbre a);
 pArbre insertionAVL(pArbre a, int id, int capacite, int consommation, int* h);
 void afficherInfixe(pArbre a);
-int recherche(pArbre a, int id, int consommation);
-
+pArbre recherche(pArbre a, int id);
+void mettreAJourCapacite(pArbre a, int id, int nouvelleCapacite);
 #endif

@@ -139,15 +139,25 @@ void afficherInfixe(pArbre a) {
   }
 }
     
-int recherche(pArbre a, int id, int consommation) {
+pArbre recherche(pArbre a, int id) {
     if (a == NULL) {
-        return 0; // Non trouvé
+        return NULL; // Non trouvé
     } else if (a->elmt.id_station == id) {
-        a->elmt.conso += consommation; // Mettre à jour la consommation
-        return 1;
+        return a; // Trouvé
     } else if (id < a->elmt.id_station) {
-        return recherche(a->fg, id, consommation);
+        return recherche(a->fg, id);
     } else {
-        return recherche(a->fd, id, consommation);
+        return recherche(a->fd, id);
+    }
+}
+
+void mettreAJourCapacite(pArbre a, int id, int nouvelleCapacite) {
+    pArbre noeud = recherche(a, id);
+    if (noeud != NULL) {
+        printf("Mise à jour de l'ID %d : ancienne capacité = %d, nouvelle capacité = %d\n",
+               id, noeud->elmt.capacite, nouvelleCapacite);
+        noeud->elmt.capacite = nouvelleCapacite;
+    } else {
+        printf("ID %d non trouvé, mise à jour impossible.\n", id);
     }
 }

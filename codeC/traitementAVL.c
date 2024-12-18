@@ -60,7 +60,7 @@
             }
 
             // Si l'ID n'est pas encore présent dans l'AVL, insérer un nouveau nœud
-            if (!recherche(a, id, consommation)) {
+            if (!recherche(a, id)) {
                 a = insertionAVL(a, id, capacite, consommation, &h);
             }
         }
@@ -80,15 +80,4 @@ void afficher(pArbre a) {
     afficher(a->fg);
     traiter(a);
     afficher(a->fd);
-}
-
-
-void parcoursSomme(pArbre a, long* somme) {
-    if (a == NULL) {
-        return;
-    }
-    parcoursSomme(a->fg, somme);
-    printf("Somme partielle: %ld, ajout de consommation: %ld (id=%d)\n", *somme, a->elmt.conso, a->elmt.id_station);
-    *somme += a->elmt.conso;
-    parcoursSomme(a->fd, somme);
 }
