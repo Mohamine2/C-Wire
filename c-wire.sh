@@ -165,32 +165,11 @@ elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
   echo "$somme_consommation" >> lv_indiv.csv
   echo "Fichier lv_indiv.csv créé"
 
-
-#elif [[ $type_station == lv && $type_consommateur == all ]]; then
-  # Extraction et traitement des données
-  #somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./codeC/main.c)
-  # Écriture dans lv_all.csv
-  #echo "Station LV:Capacité:Consommation(tous)" > lv_all.csv
-  #echo "$somme_consommation" >> lv_all.csv
-
-  #grep -E "^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" $chemin_fichier | ./codeC/main > lv_all_minmax.csv
-  #echo "Min et Max" >> lv_all.csv
-  #echo "Station LV:Capacité:Consommation(tous)" >> lv_all_minmax.csv
-  #echo "Fichier lv_all.csv créé"
-  #echo "Fichier lv_all_minmax.csv créé"
-
- #fi
-
-#permettre de récupérer la sortie du c en "sation:capacité:consommation" et la sortie écrite de la même manière mais avec le classement en fonction de la consommation absolue
-#proposition qui permet de séparer la sortie (contenant les deux printf expliqués juste au dessus) en deux
-
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
   # Extraction des lignes spécifiques pour les stations LV avec leurs consommations.
-  sortie_c=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./C-Wire 5)
-
-  # Séparer les parties Somme et Min/Max
-  somme_consommation=$(echo "$sortie_c" | sed -n '/^SOMME:/,/^MINMAX:/p' | sed '/^SOMME:/d' | sed '/^MINMAX:/d')
-  minmax_stations=$(echo "$sortie_c" | sed -n '/^MINMAX:/,$p' | sed '/^MINMAX:/d')
+  somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./C-Wire 5)
+  
+  minmax_stations=$(echo "$somme_consommation"  | ./C-Wire 6)
 
   # Écriture dans lv_all.csv
   echo "Station LV:Capacité:Consommation(tous)" > lv_all.csv
