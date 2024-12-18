@@ -9,9 +9,14 @@
 #define BUFFER_SIZE 1024
 #define TAILLE_MAX_LIGNE 1024
 
-int main(){
+int main(int argc, char *argv[]){
     pArbre a = NULL;
     char ligne[TAILLE_MAX_LIGNE];
+    if (argc < 2) { // Vérifier qu'il y a au moins un argument passé
+        printf("Erreur : Veuillez fournir un argument.\n");
+        return 1;
+    }
+    int chiffre = atoi(argv[1]);
     int h;
         
 // Lire l'entrée standard ligne par ligne
