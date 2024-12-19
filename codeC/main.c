@@ -8,7 +8,7 @@
 
 #define BUFFER_SIZE 1024
 #define TAILLE_MAX_LIGNE 1024
-
+#define MAXX 100000000
 
 int main(int argc, char *argv[]){
 
@@ -34,9 +34,10 @@ int main(int argc, char *argv[]){
                 insererLV(&lv, station, capacite, conso);
             }
         }
-         LV** tab = malloc(MAX_STATIONS * sizeof(LV*));
+         LV** tab = malloc(MAXX * sizeof(LV*));
             if (tab == NULL) {
             printf("Erreur d'allocation mémoire de tab\n");
+                libererLV(lv);
             return 1;
             }
 
