@@ -185,7 +185,7 @@ elif [[ $type_station == lv && $type_consommateur == all ]]; then
   # Création du graphique avec GnuPlot
   gnuplot <<EOF
   set terminal pngcairo size 1024,768 enhanced font 'Verdana,10'
-  set output 'graphs/stationsLV_graphique.png'
+  set output 'graphs/lv_all_graphique.png'
 
   set style data histogram
   set style histogram cluster gap 1
