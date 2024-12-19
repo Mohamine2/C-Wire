@@ -64,17 +64,15 @@ void traiterChainon(LV* lv){
 
 // Fonction pour afficher les 10 premiers des 2 sens avec n = 10
 
-void afficher_premiers(LV* tableau, int count, int n) {
+void afficher_premiers(LV** tableau, int count, int n) {
     //verification pour un cas si on a - de 20 stations
     int max = n;
     if (count < n) {
         max = count;
     }
 
-    LV* courant = tableau;
-    for (int i = 0; i < max && courant !=NULL ; i++) {
-        traiterChainon(courant);
-        courant = courant -> suivant;
+    for (int i = 0; i < max ; i++) {
+        traiterChainon(tableau[i]);
     }
 }
 
