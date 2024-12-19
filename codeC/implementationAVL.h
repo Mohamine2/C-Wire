@@ -12,7 +12,6 @@ pArbre DoubleRotationGauche(pArbre a);
 pArbre DoubleRotationDroite(pArbre a);
 pArbre equilibreAVL(pArbre a);
 pArbre insertionAVL(pArbre a, int id, long capacite, long consommation, int* h);
-void afficherInfixe(pArbre a);
-pArbre recherche(pArbre a, int id, long consommation);
+pArbre recherche(pArbre a, int id, long capacite, long consommation);
 
 #endif

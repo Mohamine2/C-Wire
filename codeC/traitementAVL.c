@@ -60,7 +60,7 @@
             }
 
             // Si l'ID n'est pas encore présent dans l'AVL, insérer un nouveau nœud
-            if (!recherche(a, id, consommation)) {
+            if (!recherche(a, id, capacite,consommation)) {
                 a = insertionAVL(a, id, capacite, consommation, &h);
             }
         }

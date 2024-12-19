@@ -120,18 +120,14 @@ int main(int argc, char *argv[]){
             continue;
         }
 
-        // Appliquer des valeurs par défaut si nécessaire
-        if (capacite == -1) capacite = 0;
+       // Appliquer une valeur par défaut si nécessaire
         if (consommation == -1) consommation = 0;
 
         // Rechercher un nœud existant
-        pArbre existant = recherche(a, id, consommation);
-        if (existant != NULL) {
-            // Mettre à jour la capacité si elle est absente
-            if (capacite == -1) {
-                capacite = existant->elmt.capacite;
-            }
-        } else {
+        pArbre existant = recherche(a, id, consommation, capacite);
+        // Appliquer une valeur par défaut si nécessaire
+        if (capacite == -1) capacite = 0;
+        if (existant == NULL) {
             // Insérer un nouveau nœud si le nœud n'existe pas
             a = insertionAVL(a, id, capacite, consommation, &h);
         }

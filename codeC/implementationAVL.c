@@ -132,15 +132,18 @@ return a;
 }
 
     
-pArbre recherche(pArbre a, int id, long consommation) {
+pArbre recherche(pArbre a, int id, long consommation, long capacite) {
     if (a == NULL) {
         return NULL; // Non trouvé
     } else if (a->elmt.id_station == id) {
         a->elmt.conso += consommation; // Mettre à jour la consommation
+        if (capacite != -1) {
+                a->elmt.capacite = capacite;
+        }
         return a;
     } else if (id < a->elmt.id_station) {
-        return recherche(a->fg, id, consommation);
+        return recherche(a->fg, id, consommation, capacite);
     } else {
-        return recherche(a->fd, id, consommation);
+        return recherche(a->fd, id, consommation, capacite);
     }
 }
