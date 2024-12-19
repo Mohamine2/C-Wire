@@ -2,7 +2,7 @@
 #include "implementationAVL.h"
 
 
-pArbre CreerArbre(int id, int capacite, int consommation) {
+pArbre CreerArbre(int id, long capacite, long consommation) {
   pArbre a = malloc(sizeof(Arbre)); 
   if (a == NULL) {                        
       exit(1);
@@ -103,7 +103,7 @@ pArbre equilibreAVL(pArbre a) {
 
 
 
-pArbre insertionAVL(pArbre a, int id, int capacite, int consommation, int* h) { 
+pArbre insertionAVL(pArbre a, int id, long capacite, long consommation, int* h) { 
   if (a == NULL) {
       *h = 1;
       return CreerArbre(id, capacite, consommation);
@@ -132,7 +132,7 @@ return a;
 }
 
     
-pArbre recherche(pArbre a, int id, int consommation) {
+pArbre recherche(pArbre a, int id, long consommation) {
     if (a == NULL) {
         return NULL; // Non trouvé
     } else if (a->elmt.id_station == id) {

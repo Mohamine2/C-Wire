@@ -60,6 +60,8 @@ int main(int argc, char *argv[]){
     pArbre a = NULL;
     int h = 0; // Hauteur pour équilibrage AVL
     // Lire l'entrée ligne par ligne
+
+    
     while (fgets(ligne, sizeof(ligne), stdin)) {
         char *token;
         int id = -1;
@@ -91,19 +93,19 @@ int main(int argc, char *argv[]){
                     champ3[sizeof(champ3) - 1] = '\0';
                     break;
                 case 4 : //champ 4
-                    strncpy(champ4, token, sizeof(champ3) - 1);
-                    champ3[sizeof(champ4) - 1] = '\0';
+                    strncpy(champ4, token, sizeof(champ4) - 1);
+                    champ4[sizeof(champ4) - 1] = '\0';
                     break;
-                case 7: // Champ capacité
-                    capacite = atoi(token);
-                    break;
-                case 8: // Champ consommation
-                    consommation = atoi(token);
-                    break;
+               case 7:  // Champ capacité
+                sscanf(token, "%ld", &capacite);
+                break;
+            
+            case 8:  // Champ consommation
+                sscanf(token, "%ld", &consommation);
+                break;
             }
-
             token = strtok(NULL, ";");
-        }
+            }
 
         // Mettre à jour l'ID avec le champ 3 s'il est rempli
         if (champ3[0] != '\0') {
