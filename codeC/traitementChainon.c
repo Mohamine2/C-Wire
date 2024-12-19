@@ -1,4 +1,4 @@
-#include "structure.h"
+#include "./structure.h"
 
 //fonction qui creer le chainon
 LV* creerLV(int id, long capacite, long consommation){
