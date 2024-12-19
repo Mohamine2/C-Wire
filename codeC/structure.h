@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define TAILLE_MAX_LIGNE 1024
+
 typedef struct Element {
   int id_station;
   long capacite;
