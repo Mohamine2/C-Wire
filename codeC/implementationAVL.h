@@ -2,7 +2,7 @@
 #define IMPLEMENTATIONAVL_H
 #include "./structure.h"
 
-pArbre CreerArbre(int id, int cap, int consommation);
+pArbre CreerArbre(int id, long cap, long consommation);
 int max(int a,int b);
 int min(int a,int b);
 int min2(int a,int b,int c);
@@ -11,8 +11,8 @@ pArbre rotationDroite(pArbre a);
 pArbre DoubleRotationGauche(pArbre a);
 pArbre DoubleRotationDroite(pArbre a);
 pArbre equilibreAVL(pArbre a);
-pArbre insertionAVL(pArbre a, int id, int capacite, int consommation, int* h);
+pArbre insertionAVL(pArbre a, int id, long capacite, long consommation, int* h);
 void afficherInfixe(pArbre a);
-pArbre recherche(pArbre a, int id, int consommation);
+pArbre recherche(pArbre a, int id, long consommation);
 
 #endif
