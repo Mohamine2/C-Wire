@@ -10,7 +10,7 @@ LV* creerLV(int id, long capacite, long consommation){
   lv->id = id;
   lv->capacite = capacite;
   lv->consommation = consommation;
-  lv->difference = capacite - consommation;
+  lv->difference = labs(capacite - consommation); //valeur absolu pour long 
   lv->suivant = NULL; //pour que ce soit chainon
   return lv;
 }
