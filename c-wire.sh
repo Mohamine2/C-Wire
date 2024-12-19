@@ -181,18 +181,11 @@ elif [[ $type_station == lv && $type_consommateur == all ]]; then
 
   echo "Fichier lv_all.csv créé"
   echo "Fichier lv_all_minmax.csv créé"
-<<<<<<< HEAD
   
   # Création du graphique avec GnuPlot
   gnuplot <<EOF
   set terminal pngcairo size 1024,768 enhanced font 'Verdana,10'
   set output 'graphs/stationsLV_graphique.png'
-=======
-  cd graphs
-  gnuplot script_gnuplot
-  cd ..
-  echo "Fichier lv_all_graphique créé"
->>>>>>> 6e58a5e66e107bfb971c3c160ca2bfe7df53b76a
 
   set style data histogram
   set style histogram cluster gap 1
