@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "./structure.h"
+#include "structure.h"
 #include "./implementationAVL.h"
 #include "./traitementAVL.h"
-
+#include "traitementChainon.c"
 
 #define BUFFER_SIZE 1024
 #define TAILLE_MAX_LIGNE 1024
@@ -17,21 +17,37 @@ int main(int argc, char *argv[]){
     }
     int chiffre = atoi(argv[1]);
     char ligne[TAILLE_MAX_LIGNE];
-    
+
      if(chiffre == 6){
         //code pour lv min max
         //faudrait le faire avec une liste chainée pour insérer les noeuds 
         int station;
         long capacite, conso;
+         int count = 0;
+         LV* lv[100000000];//on donne un max qui ne peut pas être dépassé
         fgets(ligne, sizeof(ligne), stdin); //ignorer la première ligne
 
         while (fgets(ligne, sizeof(ligne), stdin) != NULL) {
-            sscanf(ligne, "%d:%ld:%ld", &station,&capacite,&conso);
-            
-
+            if(sscanf(ligne, "%d:%ld:%ld", &station,&capacite,&conso)==3){
+                lv[count] = creerLV(station,capacite,conso);
+                count++;
+            }
         }
+         qsort(lv, count, sizeof(LV*), comparer_croissant);
+         int i=0;
+         afficher_premiers(lv[i], count, 10);
 
-        
+         int j=0;
+         qsort(lv, count, sizeof(LV*), comparer_decroissant);
+         afficher_premiers(lv[j], count, 10);
+
+         // on libère tout
+         for(int k = 0; j<count;j++){
+             free(lv[k]);
+         }
+         
+
+
         return 0;
      }
 
@@ -119,4 +135,3 @@ int main(int argc, char *argv[]){
 
     return 0;
 }
-
