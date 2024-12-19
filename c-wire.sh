@@ -144,25 +144,25 @@ trap '{
 
 
 if [[ $type_station == hva ]]; then
-  somme_consommation=$(grep -E "^[0-9]+;[0-9]+;[0-9]+;-;-;-;[0-9]+;-|^[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" "$chemin_fichier" | ./C-Wire 1)
+  somme_consommation=$(grep -E "^[0-9]+;[0-9]+;[0-9]+;-;-;-;[0-9]+;-|^[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" "$chemin_fichier" | ./codeC/C-Wire 1)
   echo "Station HV-A:Capacité:Consommation(entreprises)" > hva_comp.csv
   echo "$somme_consommation" >> hva_comp.csv
   echo "Fichier hva_comp.csv créé"
 
 elif [[ $type_station == hvb ]]; then
-  somme_consommation=$(grep -E "^[0-9]+;[0-9]+;-;-;-;-;[0-9]+;-|^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" "$chemin_fichier" | ./C-Wire 2)
+  somme_consommation=$(grep -E "^[0-9]+;[0-9]+;-;-;-;-;[0-9]+;-|^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" "$chemin_fichier" | ./codeC/C-Wire 2)
   echo "Station HV-B:Capacité:Consommation(entreprises)" > hvb_comp.csv
   echo "$somme_consommation" >> hvb_comp.csv
   echo "Fichier hvb_comp.csv créé"
 
 elif [[ $type_station == lv && $type_consommateur == comp ]]; then
-  somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" "$chemin_fichier" | ./C-Wire 3)
+  somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" "$chemin_fichier" | ./codeC/C-Wire 3)
   echo "Station LV:Capacité:Consommation(entreprises)" > lv_comp.csv
   echo "$somme_consommation" >> lv_comp.csv
   echo "Fichier lv_comp.csv créé"
 
 elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
-  somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./C-Wire 4)
+  somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./codeC/C-Wire 4)
   echo "Station LV:Capacité:Consommation(particuliers)" > lv_indiv.csv
   echo "$somme_consommation" >> lv_indiv.csv
   echo "Fichier lv_indiv.csv créé"
@@ -170,10 +170,10 @@ elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
 
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
   # Extraction des lignes spécifiques pour les stations LV avec leurs consommations.
-  somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./C-Wire 5)
+  somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./codeC/C-Wire 5)
   
-  minmax_stations=$(echo "$somme_consommation"  | ./C-Wire 6)
-  
+  minmax_stations=$(echo "$somme_consommation"  | ./codeC/C-Wire 6)
+
   # Écriture dans lv_all.csv
   echo "Station LV:Capacité:Consommation(tous)" > lv_all.csv
   echo "$somme_consommation" >> lv_all.csv
