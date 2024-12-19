@@ -102,7 +102,6 @@ else
     fi
 fi
 
-
 # Vérification de l'existence du dossier tmp
 if [ -d "tmp" ]; then
     echo "Le dossier 'tmp' existe. On vide son contenu..."
@@ -113,6 +112,17 @@ else
 fi
 
 echo "Le dossier 'tmp' est prêt pour les traitements."
+
+# Vérification de l'existence du dossier tmp
+if [ -d "graphs" ]; then
+    echo "Le dossier 'graphs' existe. On vide son contenu..."
+    rm -rf "graphs"/*
+else
+    echo "Le dossier 'graphs' n'existe pas. Création en cours..."
+    mkdir "graphs"
+fi
+
+echo "Le dossier 'graphs' est prêt."
 
 chemin_fichier="$1"
 type_station="$2"
@@ -171,8 +181,37 @@ elif [[ $type_station == lv && $type_consommateur == all ]]; then
 
   echo "Fichier lv_all.csv créé"
   echo "Fichier lv_all_minmax.csv créé"
-  cd graphs
-  gnuplot script_gnuplot
-  cd ..
+  
+  # Création du graphique avec GnuPlot
+  gnuplot <<EOF
+  set terminal pngcairo size 1024,768 enhanced font 'Verdana,10'
+  set output 'graphs/stationsLV_graphique.png'
 
-fi
+  set style data histogram
+  set style histogram cluster gap 1
+  set style fill solid border -1
+  set boxwidth 0.75
+
+  set grid ytics
+  set title "Consommation des stations LV"
+  set xlabel "Station LV"
+  set ylabel "Quantité d'énergie"
+
+  set key off
+  set xtics rotate by -45 scale 0 font ",10"
+
+  # Définir les couleurs conditionnelles
+  set style line 1 lc rgb 'red'   # Consommation > Capacité
+  set style line 2 lc rgb 'green' # Consommation <= Capacité
+
+  # Lecture des données avec ':' comme séparateur
+  set datafile separator ':'
+
+  # Traçage avec deux conditions distinctes
+  plot 'lv_all_minmax.csv' using (column(3) > column(2) ? column(3) : 1/0):xtic(1) title "Surconsommation" with boxes ls 1, \
+      '' using (column(3) <= column(2) ? column(3) : 1/0):xtic(1) title "Sous-consommation" with boxes ls 2
+EOF
+
+  echo "Graphique généré : lv_all_graphique.png"
+
+  fi
