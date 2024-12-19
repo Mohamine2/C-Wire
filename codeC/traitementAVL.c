@@ -91,6 +91,8 @@ pArbre remplirAVL(pArbre a, FILE* stdin){
         // Appliquer une valeur par défaut si nécessaire
         if (capacite == -1) capacite = 0;
         if (existant == NULL) {
+            // Appliquer une valeur par défaut si nécessaire
+            if (capacite == -1) capacite = 0;
             // Insérer un nouveau nœud si le nœud n'existe pas
             a = insertionAVL(a, id, capacite, consommation, &h);
         }

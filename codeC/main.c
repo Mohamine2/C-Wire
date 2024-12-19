@@ -58,6 +58,7 @@ int main(int argc, char *argv[]){
      }
 
     pArbre a = NULL;
+    //stdin en paramètre pour envoyer l'entrée standard dans la fonction
     a = remplirAVL(a, stdin);
 
     // Affichage final de l'arbre
