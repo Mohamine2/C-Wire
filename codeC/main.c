@@ -4,7 +4,7 @@
 #include "structure.h"
 #include "./implementationAVL.h"
 #include "./traitementAVL.h"
-#include "traitementChainon.h"
+#include "./traitementChainon.h"
 
 #define BUFFER_SIZE 1024
 #define TAILLE_MAX_LIGNE 1024
