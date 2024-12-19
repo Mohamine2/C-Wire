@@ -171,4 +171,8 @@ elif [[ $type_station == lv && $type_consommateur == all ]]; then
 
   echo "Fichier lv_all.csv créé"
   echo "Fichier lv_all_minmax.csv créé"
+  cd graphs
+  gnuplot script_gnuplot
+  cd ..
+
 fi
