@@ -10,5 +10,6 @@ void traiterChainon(LV* lv);
 void afficher_premiers(LV** tableau, int count, int n);
 int listerLV(LV* tete,LV** tableau);
 void libererLV(LV* lv);
+void MinMax(FILE* stdin);
 
 #endif
