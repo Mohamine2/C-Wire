@@ -9,6 +9,7 @@
 #define BUFFER_SIZE 1024
 #define TAILLE_MAX_LIGNE 1024
 
+
 int main(int argc, char *argv[]){
 
     if (argc < 2) { // Vérifier qu'il y a au moins un argument passé
@@ -33,7 +34,12 @@ int main(int argc, char *argv[]){
                 insererLV(&lv, station, capacite, conso);
             }
         }
-         LV* tab[100000000];//on donne un max qui ne peut pas être dépassé
+         LV** tab = malloc(MAX_STATIONS * sizeof(LV*));
+            if (tab == NULL) {
+            printf("Erreur d'allocation mémoire de tab\n");
+            return 1;
+            }
+
          int count = listerLV(lv, tab);
 
          qsort(tab, count, sizeof(LV*), comparer_croissant);
@@ -41,7 +47,7 @@ int main(int argc, char *argv[]){
 
          
          qsort(tab, count, sizeof(LV*), comparer_decroissant);
-         afficher_premiers(&lv, count, 10);
+         afficher_premiers(tab, count, 10);
 
          // on libère tout
          libererLV(lv);
