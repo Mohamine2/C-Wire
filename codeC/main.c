@@ -25,8 +25,6 @@ int main(int argc, char *argv[]){
         int station;
         long capacite, conso;
          
-         LV* tab[100000000];//on donne un max qui ne peut pas être dépassé
-         int count = listerLV(lv, tab);
          
         fgets(ligne, sizeof(ligne), stdin); //ignorer la première ligne
 
@@ -35,11 +33,14 @@ int main(int argc, char *argv[]){
                 insererLV(&lv, station, capacite, conso);
             }
         }
-         qsort(lv, count, sizeof(LV*), comparer_croissant);
+         LV* tab[100000000];//on donne un max qui ne peut pas être dépassé
+         int count = listerLV(lv, tab);
+
+         qsort(tab, count, sizeof(LV*), comparer_croissant);
          afficher_premiers(tab, count, 10);
 
          
-         qsort(lv, count, sizeof(LV*), comparer_decroissant);
+         qsort(tab, count, sizeof(LV*), comparer_decroissant);
          afficher_premiers(&lv, count, 10);
 
          // on libère tout
