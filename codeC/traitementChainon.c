@@ -99,3 +99,39 @@ void libererLV(LV* lv){
     a = b;
   }
 }
+
+void MinMax(FILE* stdin){
+        LV* lv = NULL;
+        int station;
+        long capacite, conso;
+        char ligne[TAILLE_MAX_LIGNE];
+         
+         
+        fgets(ligne, sizeof(ligne), stdin); //ignorer la première ligne
+
+        while (fgets(ligne, sizeof(ligne), stdin) != NULL) {
+            if(sscanf(ligne, "%d:%ld:%ld", &station,&capacite,&conso)==3){
+                insererLV(&lv, station, capacite, conso);
+            }
+        }
+         LV** tab = malloc(MAXX * sizeof(LV*));
+            if (tab == NULL) {
+            printf("Erreur d'allocation mémoire de tab\n");
+            libererLV(lv);
+            return;
+            }
+
+         int count = listerLV(lv, tab);
+
+         qsort(tab, count, sizeof(LV*), comparer_croissant);
+         afficher_premiers(tab, count, 10);
+
+         
+         qsort(tab, count, sizeof(LV*), comparer_decroissant);
+         afficher_premiers(tab, count, 10);
+
+         // on libère tout
+         libererLV(lv);
+
+}
+

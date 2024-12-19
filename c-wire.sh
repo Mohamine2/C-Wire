@@ -174,5 +174,6 @@ elif [[ $type_station == lv && $type_consommateur == all ]]; then
   cd graphs
   gnuplot script_gnuplot
   cd ..
+  echo "Fichier lv_all_graphique créé"
 
 fi

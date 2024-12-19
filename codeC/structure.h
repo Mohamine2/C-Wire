@@ -6,6 +6,7 @@
 #include <string.h>
 
 #define TAILLE_MAX_LIGNE 1024
+#define MAXX 100000000
 
 typedef struct Element {
   int id_station;
