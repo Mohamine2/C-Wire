@@ -20,8 +20,9 @@ typedef struct Arbre {
 
 typedef struct LV {
     int id;
-    int capacite;
-    int consommation;
+    long capacite;
+    long consommation;
+long difference;
     struct LV* suivant;
 } LV;
 

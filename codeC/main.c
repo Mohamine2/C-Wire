@@ -4,10 +4,11 @@
 #include "structure.h"
 #include "./implementationAVL.h"
 #include "./traitementAVL.h"
-#include "traitementChainon.c"
+#include "./traitementChainon.h"
 
 #define BUFFER_SIZE 1024
 #define TAILLE_MAX_LIGNE 1024
+#define MAXX 100000000
 
 int main(int argc, char *argv[]){
 
@@ -21,31 +22,36 @@ int main(int argc, char *argv[]){
      if(chiffre == 6){
         //code pour lv min max
         //faudrait le faire avec une liste chainée pour insérer les noeuds 
+         LV* lv = NULL;
         int station;
         long capacite, conso;
-         int count = 0;
-         LV* lv[100000000];//on donne un max qui ne peut pas être dépassé
+         
+         
         fgets(ligne, sizeof(ligne), stdin); //ignorer la première ligne
 
         while (fgets(ligne, sizeof(ligne), stdin) != NULL) {
             if(sscanf(ligne, "%d:%ld:%ld", &station,&capacite,&conso)==3){
-                lv[count] = creerLV(station,capacite,conso);
-                count++;
+                insererLV(&lv, station, capacite, conso);
             }
         }
-         qsort(lv, count, sizeof(LV*), comparer_croissant);
-         int i=0;
-         afficher_premiers(lv[i], count, 10);
+         LV** tab = malloc(MAXX * sizeof(LV*));
+            if (tab == NULL) {
+            printf("Erreur d'allocation mémoire de tab\n");
+                libererLV(lv);
+            return 1;
+            }
 
-         int j=0;
-         qsort(lv, count, sizeof(LV*), comparer_decroissant);
-         afficher_premiers(lv[j], count, 10);
+         int count = listerLV(lv, tab);
+
+         qsort(tab, count, sizeof(LV*), comparer_croissant);
+         afficher_premiers(tab, count, 10);
+
+         
+         qsort(tab, count, sizeof(LV*), comparer_decroissant);
+         afficher_premiers(tab, count, 10);
 
          // on libère tout
-         for(int k = 0; j<count;j++){
-             free(lv[k]);
-         }
-         
+         libererLV(lv);
 
 
         return 0;
