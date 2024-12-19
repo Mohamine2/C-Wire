@@ -3,7 +3,7 @@
 #include "./structure.h"
 #include "./implementationAVL.h"
 
-void remplirAVL(pArbre a);
+pArbre recherche(pArbre a, int id, long consommation, long capacite);
 void traiter(pArbre a);
 void afficher(pArbre a);
 
