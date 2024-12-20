@@ -173,9 +173,10 @@ elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
 
 
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
-  # Extraction des lignes spécifiques pour les stations LV avec leurs consommations.
+  # Extraction des lignes spécifiques pour les stations LV avec leurs consommations et le code C renvoit les lignes "station LV:capacite:consommation"
   somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./codeC/C-Wire 5)
-  
+
+  #on redonne au code C ce que le code a retourné avec "station LV:capacite:consommation" pour créer le fichier minmax
   minmax_stations=$(echo "$somme_consommation"  | ./codeC/C-Wire 6)
 
   # Écriture dans lv_all.csv

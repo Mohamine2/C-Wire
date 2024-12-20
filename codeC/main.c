@@ -14,11 +14,11 @@ int main(int argc, char *argv[]){
         return 1;
     }
     int chiffre = atoi(argv[1]);
-    //char ligne[TAILLE_MAX_LIGNE];
 
+    //Cas où l'utilisateur choisi "lv all"
     if(chiffre == 6){
         //code pour lv min max
-        MinMax(stdin);
+        MinMax(stdin); //stdin en paramètre pour envoyer l'entrée standard dans la fonction
         return 0;
     }
 
