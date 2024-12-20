@@ -1,7 +1,7 @@
 #include "structure.h"
 #include "implementationAVL.h"
 
-
+//fonction qui créer un noeud avec notre structure
 pArbre CreerArbre(int id, long capacite, long consommation) {
   pArbre a = malloc(sizeof(Arbre)); 
   if (a == NULL) {                        
@@ -16,6 +16,7 @@ pArbre CreerArbre(int id, long capacite, long consommation) {
   return a;
 }
 
+//le max en fonction de 2 valeurs
 int max(int a,int b){
   if(a<b){
       return b;
@@ -24,6 +25,7 @@ int max(int a,int b){
   }
 }
 
+//le min en fonction de 2 valeurs
 int min(int a, int b){
   if(a<b){
       return a;
@@ -32,12 +34,13 @@ int min(int a, int b){
   }
 }
 
+//le min en fonction de 3 valeurs
 int min2(int a,int b,int c){
   return min(min(a,b),c);
 }
 
 
-
+//fonction rotation à gauche
 pArbre rotationGauche(pArbre a) {
     if (a == NULL || a->fd == NULL) return a;
 
@@ -54,6 +57,8 @@ pArbre rotationGauche(pArbre a) {
     return pivot;  
 }
 
+
+//fonction rotation à droite
 pArbre rotationDroite(pArbre a){
     if(a==NULL || a->fg==NULL) return a;
 
@@ -71,18 +76,22 @@ pArbre rotationDroite(pArbre a){
 
 }
 
+//fonction double rotation à gauche
 pArbre DoubleRotationGauche(pArbre a) {
   if (a == NULL) return a;
   a->fd = rotationDroite(a->fd);
   return rotationGauche(a);
 }
 
+
+//fonction double rotation à droite
 pArbre DoubleRotationDroite(pArbre a) {
   if (a == NULL) return a;
   a->fg = rotationGauche(a->fg);
   return rotationDroite(a);
 }
 
+//fonction qui permet d'équilibrer avec la rotation nécessaire en fonction de l'équilibre 
 pArbre equilibreAVL(pArbre a) {
   if (a->eq >= 2) {
       if (a->fd != NULL && a->fd->eq >= 0) {
@@ -102,7 +111,7 @@ pArbre equilibreAVL(pArbre a) {
 
 
 
-
+//fonction qui insere un nouveau noeud en fonction de notre structure et en mettant à jour l'equilibre
 pArbre insertionAVL(pArbre a, int id, long capacite, long consommation, int* h) { 
   if (a == NULL) {
       *h = 1;
