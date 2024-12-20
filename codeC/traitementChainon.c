@@ -15,6 +15,7 @@ LV* creerLV(int id, long capacite, long consommation){
   return lv;
 }
 
+//fonction pour inserer des chainon
 void insererLV(LV** tete, int id, long capacite, long consommation){
   LV* lv = creerLV(id, capacite, consommation);
   if(lv == NULL){ //pense pas c'est nécessaire car on vérifie déjà dans CreerLV
@@ -86,7 +87,7 @@ int listerLV(LV* tete,LV** tableau){
   return count;
 }
 
-
+//fonction pour libérer
 void libererLV(LV* lv){
   if(lv == NULL){
     return;
@@ -100,6 +101,8 @@ void libererLV(LV* lv){
   }
 }
 
+
+//fonction qui éxecute tout le programme traitement chainon dans la fonction main
 void MinMax(FILE* stdin){
         LV* lv = NULL;
         int station;
@@ -114,6 +117,8 @@ void MinMax(FILE* stdin){
                 insererLV(&lv, station, capacite, conso);
             }
         }
+
+        //on creer le tableau
          LV** tab = malloc(MAXX * sizeof(LV*));
             if (tab == NULL) {
             printf("Erreur d'allocation mémoire de tab\n");
@@ -121,14 +126,16 @@ void MinMax(FILE* stdin){
             return;
             }
 
+          //on met le nombre de count à jour en fonction du tableau
          int count = listerLV(lv, tab);
-
+  
+          //le tableau tab est trié dans l'ordre croissant
          qsort(tab, count, sizeof(LV*), comparer_croissant);
-         afficher_premiers(tab, count, 10);
+         afficher_premiers(tab, count, 10); //on prend les 10 premiers après le tri croissant
 
-         
+        //le tableau tab est trié dans l'ordre décroissant
          qsort(tab, count, sizeof(LV*), comparer_decroissant);
-         afficher_premiers(tab, count, 10);
+         afficher_premiers(tab, count, 10); //on prend les 10 premiers après le tri décroissant
 
          // on libère tout
          libererLV(lv);
