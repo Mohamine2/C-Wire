@@ -14,6 +14,13 @@ if [[ "$*" == *"-h"* ]]; then
   exit 0
 fi
 
+if [[ "$*" == *"clean"* ]]; then
+  cd codeC
+  make clean
+  cd ..
+  exit 0
+fi
+
 # Vérification des paramètres obligatoires
 if [[ $# -lt 3 ]]; then
   echo "Erreur : Les paramètres <chemin_fichier>, <type_station>, et <type_consommateur> sont obligatoires."
@@ -91,9 +98,9 @@ if [ -f "codeC/main.o" ]; then
     echo "L'executable C existe"
 else
     cd codeC
+    echo "L'éxecutable main n'existait pas, le programme main.c est en cours de compilation..."
     make
     cd ..
-    echo "L'éxecutable main n'existait pas, le programme main.c est en cours de compilation..."
     if [ -f "codeC/main.o" ]; then
     echo "Compilation réussie"
     else
