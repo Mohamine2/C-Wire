@@ -14,7 +14,7 @@ if [[ "$*" == *"-h"* ]]; then
   exit 0
 fi
 
-if [[ "$*" == *"clean"* ]]; then
+if [[ "$1" == "clean" ]]; then
   cd codeC
   make clean
   cd ..
