@@ -202,7 +202,7 @@ elif [[ $type_station == lv && $type_consommateur == all ]]; then
   set grid ytics
   set title "Consommation des stations LV"
   set xlabel "Station LV"
-  set ylabel "Quantité d'énergie"
+  set ylabel "Quantité d'énergie consomée"
 
   set key off
   set xtics rotate by -45 scale 0 font ",10"
