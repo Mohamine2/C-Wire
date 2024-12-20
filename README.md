@@ -6,8 +6,11 @@ Ce programme permet de réaliser la synthèse de données d'un système de distr
 Assurez-vous que tous les fichiers .c et .h sont présents dans le répertoire de compilation.
 Assure-vous également que le fichier contenant les données à traiter est bien situé dans le dossier C-Wire/input.
 
-Pour utiliser le programme, entrez dans le fichier C-Wire à l'aide de la commande:
-
+Pour utiliser le programme, vous devez installer Gnuplot à l'aide de la commande:
+```bash
+  sudo apt install gnuplot
+```
+Puis, entrez dans le fichier C-Wire à l'aide de la commande:
 ```bash
   cd C-Wire
 ```
