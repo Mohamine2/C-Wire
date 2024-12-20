@@ -24,4 +24,7 @@ Option d'aide :
 ```
 
 # Développeurs
-Ce programme a été développé par Ismail NIAKATE, Mohamed-Amine BOUAZZAOUI et Alexis MURUGAN.
+
+- [@ismankt](https://www.github.com/ismankt)
+- [@Mohamine2](https://www.github.com/Mohamine2)
+- [@satyalexis](https://www.github.com/satyalexis)
