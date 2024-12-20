@@ -28,6 +28,8 @@ int main(int argc, char *argv[]){
 
     // Affichage final de l'arbre
     afficher(a);
+    //liberer l'arbre
+    libererAVL(a);
 
 
     return 0;

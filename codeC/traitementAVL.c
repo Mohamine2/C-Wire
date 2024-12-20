@@ -120,3 +120,16 @@ void afficher(pArbre a) {
     traiter(a);
     afficher(a->fd);
 }
+
+//fonction pour liberer l'AVL de manière postfixe
+void libererAVL(pArbre a){
+
+    if(a==NULL){
+        return;
+    }
+
+    libererAVL(a->fg);
+    libererAVL(a->fd);
+    free(a);
+
+}
