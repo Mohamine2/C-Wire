@@ -4,6 +4,7 @@
 #include "./structure.h"
 #include "./implementationAVL.h"
 
+//fonction qui permet de rechercher et mettre à jour
 pArbre recherche(pArbre a, int id, long consommation, long capacite) {
 
     if (a == NULL) {
@@ -21,6 +22,7 @@ pArbre recherche(pArbre a, int id, long consommation, long capacite) {
     }
 }
 
+//fonction du main qui reprend tout les fonctions traitementAVL et implementationAVL
 pArbre remplirAVL(pArbre a, FILE* stdin){
     int h = 0; // Hauteur pour équilibrage AVL
     // Lire l'entrée ligne par ligne
@@ -101,6 +103,7 @@ pArbre remplirAVL(pArbre a, FILE* stdin){
 
 }
 
+//fonction qui affiche pour un arbre
 void traiter(pArbre a){
     if(a == NULL){
         return;
@@ -108,6 +111,7 @@ void traiter(pArbre a){
     printf("%d:%ld:%ld\n", a->elmt.id_station, a->elmt.capacite, a->elmt.conso);
 }
 
+//parcourir en infixe pour que ce soit en ordre croissant
 void afficher(pArbre a) {
     if (a == NULL) {
         return;
