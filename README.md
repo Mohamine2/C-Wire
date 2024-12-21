@@ -14,10 +14,6 @@ Puis, entrez dans le fichier C-Wire à l'aide de la commande:
 ```bash
   cd C-Wire
 ```
-Compilez le programme C à l'aide de la commande
-```bash
-  make
-```
 
 Ensuite, exécutez le script shell à l'aide de la commande :
 ```bash
