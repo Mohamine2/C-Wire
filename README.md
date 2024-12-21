@@ -14,6 +14,11 @@ Puis, entrez dans le fichier C-Wire à l'aide de la commande:
 ```bash
   cd C-Wire
 ```
+Compilez le programme C à l'aide de la commande
+```bash
+  make
+```
+
 Ensuite, exécutez le script shell à l'aide de la commande :
 ```bash
   ./c-wire.sh input/[nom fichier] [type de station] [comp/indiv/all]
@@ -21,6 +26,14 @@ Ensuite, exécutez le script shell à l'aide de la commande :
 Option d'aide :
 ```bash
   ./c-wire.sh -h
+```
+Pour supprimer les exécutables, utilisez l'option 'clean' :
+```bash
+  ./c-wire.sh clean
+```
+En cas de permission refusée lors de l'exécution, veuillez entrer la commande suivante :
+```bash
+  chmod -R u+x .
 ```
 
 # Développeurs
