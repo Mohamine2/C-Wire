@@ -1,6 +1,6 @@
 #include "structure.h"
 
-//fonction qui creer le chainon
+//fonction qui crée le chainon
 LV* creerLV(int id, long capacite, long consommation){
   LV* lv = malloc(sizeof(LV));
   if(lv == NULL){
@@ -102,7 +102,7 @@ void libererLV(LV* lv){
 }
 
 
-//fonction qui éxecute tout le programme traitement chainon dans la fonction main
+//fonction qui exécute tout le programme traitement chainon dans la fonction main
 void MinMax(FILE* stdin){
         LV* lv = NULL;
         int station;

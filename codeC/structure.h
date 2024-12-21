@@ -22,11 +22,11 @@ typedef struct Arbre {
 } Arbre;
 
 typedef struct LV {
-    int id;
-    long capacite;
-    long consommation;
-long difference;
-    struct LV* suivant;
+  int id;
+  long capacite;
+  long consommation;
+  long difference;
+  struct LV* suivant;
 } LV;
 
 

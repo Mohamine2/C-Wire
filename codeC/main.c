@@ -15,7 +15,7 @@ int main(int argc, char *argv[]){
     }
     int chiffre = atoi(argv[1]);
 
-    //Cas où l'utilisateur choisi "lv all"
+    //Cas où l'utilisateur choisit "lv all"
     if(chiffre == 6){
         //code pour lv min max
         MinMax(stdin); //stdin en paramètre pour envoyer l'entrée standard dans la fonction
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
 
     // Affichage final de l'arbre
     afficher(a);
-    //liberer l'arbre
+    //libérer l'arbre
     libererAVL(a);
 
 

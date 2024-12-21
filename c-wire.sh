@@ -16,6 +16,7 @@ if [[ "$*" == *"-h"* ]]; then
   exit 0
 fi
 
+#Supprime les exécutables si clean est placé en premier paramètre
 if [[ "$1" == "clean" ]]; then
   cd codeC
   make clean
@@ -101,6 +102,7 @@ if [[ "$2" == "hvb" || "$2" == "hva" ]] && [[ "$3" != "comp" ]]; then
   exit 1
 fi
 
+#Vérification existence exécuable C et compilation si il n'existe pas
 if [ -f "codeC/main.o" ]; then
     echo "L'executable C existe"
 else
@@ -116,7 +118,7 @@ else
     fi
 fi
 
-# Vérification de l'existence du dossier tmp
+# Vérification de l'existence du dossier tmp et création de ce dernier s'il n'existe pas
 if [ -d "tmp" ]; then
     echo "Le dossier 'tmp' existe. On vide son contenu..."
     rm -rf "tmp"/*
@@ -127,7 +129,7 @@ fi
 
 echo "Le dossier 'tmp' est prêt pour les traitements."
 
-# Vérification de l'existence du dossier tmp
+# Vérification de l'existence du dossier graphs et création de ce dernier s'il n'existe pas
 if [ -d "graphs" ]; then
     echo "Le dossier 'graphs' existe. On vide son contenu..."
     rm -rf "graphs"/*
@@ -145,7 +147,7 @@ type_consommateur="$3"
 # Capturer l'heure de début
 debut_script=$(date +%s.%N)
 
-# Configurer le trap en cas d'erreur
+# Configurer le trap en cas d'erreur ou de sortie du programme
 trap '{ 
     fin_script=$(date +%s.%N)
     duree_script=$(echo "$fin_script - $debut_script" | bc)
@@ -153,32 +155,35 @@ trap '{
     printf "Durée de traitement du script : %.1fsec\n" "$duree_script"
 }' EXIT ERR
 
-
+#Traitement hva comp
 if [[ $type_station == hva ]]; then
   somme_consommation=$(grep -E "^[0-9]+;[0-9]+;[0-9]+;-;-;-;[0-9]+;-|^[0-9]+;-;[0-9]+;-;[0-9]+;-;-;[0-9]+" "$chemin_fichier" | ./codeC/C-Wire 1)
   echo "Station HV-A:Capacité:Consommation(entreprises)" > hva_comp.csv
   echo "$somme_consommation" >> hva_comp.csv
   echo "Fichier hva_comp.csv créé"
 
+#Traitement hvb comp
 elif [[ $type_station == hvb ]]; then
   somme_consommation=$(grep -E "^[0-9]+;[0-9]+;-;-;-;-;[0-9]+;-|^[0-9]+;[0-9]+;-;-;[0-9]+;-;-;[0-9]+" "$chemin_fichier" | ./codeC/C-Wire 2)
   echo "Station HV-B:Capacité:Consommation(entreprises)" > hvb_comp.csv
   echo "$somme_consommation" >> hvb_comp.csv
   echo "Fichier hvb_comp.csv créé"
 
+#Traitement lv comp
 elif [[ $type_station == lv && $type_consommateur == comp ]]; then
   somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+" "$chemin_fichier" | ./codeC/C-Wire 3)
   echo "Station LV:Capacité:Consommation(entreprises)" > lv_comp.csv
   echo "$somme_consommation" >> lv_comp.csv
   echo "Fichier lv_comp.csv créé"
 
+#Traitement lv indiv
 elif [[ $type_station == lv && $type_consommateur == indiv ]]; then
   somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./codeC/C-Wire 4)
   echo "Station LV:Capacité:Consommation(particuliers)" > lv_indiv.csv
   echo "$somme_consommation" >> lv_indiv.csv
   echo "Fichier lv_indiv.csv créé"
 
-
+#Traitement lv all
 elif [[ $type_station == lv && $type_consommateur == all ]]; then
   # Extraction des lignes spécifiques pour les stations LV avec leurs consommations et le code C renvoit les lignes "station LV:capacite:consommation"
   somme_consommation=$(grep -E "^[0-9]+;-;[0-9]+;[0-9]+;-;-;[0-9]+;-|^[0-9]+;-;-;[0-9]+;[0-9]+;-;-;[0-9]+|^[0-9]+;-;-;[0-9]+;-;[0-9]+;-;[0-9]+" "$chemin_fichier" | ./codeC/C-Wire 5)

@@ -1,7 +1,7 @@
 #include "structure.h"
 #include "implementationAVL.h"
 
-//fonction qui créer un noeud avec notre structure
+//fonction qui crée un noeud avec notre structure
 pArbre CreerArbre(int id, long capacite, long consommation) {
   pArbre a = malloc(sizeof(Arbre)); 
   if (a == NULL) {                        
