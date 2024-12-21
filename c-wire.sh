@@ -202,7 +202,7 @@ elif [[ $type_station == lv && $type_consommateur == all ]]; then
 
   set grid ytics
   set title "Consommation des stations LV"
-  set xlabel "Station LV"
+  set xlabel "Identifiant station"
   set ylabel "Quantité d'énergie consomée"
 
   set key off
