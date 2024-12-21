@@ -2,6 +2,7 @@
 
 # Afficher l'aide si -h est fourni
 if [[ "$*" == *"-h"* ]]; then
+  echo "Erreur : Les paramètres <chemin_fichier>, <type_station>, et <type_consommateur> sont obligatoires."
   echo "Usage: $0 <chemin_fichier> <type_station> <type_consommateur> [identifiant_centrale] [-h]"
   echo "Paramètres obligatoires :"
   echo "  <chemin_fichier> : Indique l’endroit où se trouve le fichier d’entrée."
@@ -10,6 +11,7 @@ if [[ "$*" == *"-h"* ]]; then
   echo "    ATTENTION : hvb et hva ne peuvent pas être associés à all ou indiv."
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
+  echo "  clean : Supprime tous les exécutables et quitte le script si l'option est placée en premier paramètre."
   echo "Durée de traitement du script : 0.0 seconde"
   exit 0
 fi
@@ -32,13 +34,14 @@ if [[ $# -lt 3 ]]; then
   echo "    ATTENTION : hvb et hva ne peuvent pas être associés à all ou indiv."
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
+  echo "  clean : Supprime tous les exécutables et quitte le script si l'option est placée en premier paramètre."
   echo "Durée de traitement du script : 0.0 seconde"
   exit 1
 fi
 
 #Vérification des valeurs
 if [[ ! -f "$1" ]]; then
-  echo "Erreur : Le fichier spécifié n'existe pas"
+    echo "Erreur : Les paramètres <chemin_fichier>, <type_station>, et <type_consommateur> sont obligatoires."
   echo "Usage: $0 <chemin_fichier> <type_station> <type_consommateur> [identifiant_centrale] [-h]"
   echo "Paramètres obligatoires :"
   echo "  <chemin_fichier> : Indique l’endroit où se trouve le fichier d’entrée."
@@ -47,12 +50,13 @@ if [[ ! -f "$1" ]]; then
   echo "    ATTENTION : hvb et hva ne peuvent pas être associés à all ou indiv."
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
+  echo "  clean : Supprime tous les exécutables et quitte le script si l'option est placée en premier paramètre."
   echo "Durée de traitement du script : 0.0 seconde"
   exit 1
 fi
 
 if [[ "$2" != "hvb" && "$2" != "hva" && "$2" != "lv" ]]; then
-  echo "Erreur : Type de station incorrect."
+  echo "Erreur : Les paramètres <chemin_fichier>, <type_station>, et <type_consommateur> sont obligatoires."
   echo "Usage: $0 <chemin_fichier> <type_station> <type_consommateur> [identifiant_centrale] [-h]"
   echo "Paramètres obligatoires :"
   echo "  <chemin_fichier> : Indique l’endroit où se trouve le fichier d’entrée."
@@ -61,12 +65,13 @@ if [[ "$2" != "hvb" && "$2" != "hva" && "$2" != "lv" ]]; then
   echo "    ATTENTION : hvb et hva ne peuvent pas être associés à all ou indiv."
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
+  echo "  clean : Supprime tous les exécutables et quitte le script si l'option est placée en premier paramètre."
   echo "Durée de traitement du script : 0.0 seconde"
   exit 1
 fi
 
 if [[ "$3" != "comp" && "$3" != "indiv" && "$3" != "all" ]]; then
-  echo "Erreur : Type de consommateur incorrect."
+  echo "Erreur : Les paramètres <chemin_fichier>, <type_station>, et <type_consommateur> sont obligatoires."
   echo "Usage: $0 <chemin_fichier> <type_station> <type_consommateur> [identifiant_centrale] [-h]"
   echo "Paramètres obligatoires :"
   echo "  <chemin_fichier> : Indique l’endroit où se trouve le fichier d’entrée."
@@ -75,13 +80,14 @@ if [[ "$3" != "comp" && "$3" != "indiv" && "$3" != "all" ]]; then
   echo "    ATTENTION : hvb et hva ne peuvent pas être associés à all ou indiv."
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
+  echo "  clean : Supprime tous les exécutables et quitte le script si l'option est placée en premier paramètre."
   echo "Durée de traitement du script : 0.0 seconde"
   exit 1
 fi
 
 # Vérification des contraintes sur les types de station et de consommateur
 if [[ "$2" == "hvb" || "$2" == "hva" ]] && [[ "$3" != "comp" ]]; then
-  echo "Erreur : Les types de station hvb et hva ne peuvent être associés qu'à 'comp'."
+  echo "Erreur : Les paramètres <chemin_fichier>, <type_station>, et <type_consommateur> sont obligatoires."
   echo "Usage: $0 <chemin_fichier> <type_station> <type_consommateur> [identifiant_centrale] [-h]"
   echo "Paramètres obligatoires :"
   echo "  <chemin_fichier> : Indique l’endroit où se trouve le fichier d’entrée."
@@ -90,6 +96,7 @@ if [[ "$2" == "hvb" || "$2" == "hva" ]] && [[ "$3" != "comp" ]]; then
   echo "    ATTENTION : hvb et hva ne peuvent pas être associés à all ou indiv."
   echo "Options :"
   echo "  -h : Affiche cette aide et ignore toutes les autres options."
+  echo "  clean : Supprime tous les exécutables et quitte le script si l'option est placée en premier paramètre."
   echo "Durée de traitement du script : 0.0 seconde"
   exit 1
 fi
